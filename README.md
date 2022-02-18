@@ -1,40 +1,54 @@
-# game-project-1
-## **SET +**
-### A Friend Game of Visual Sensations
+## game-project-1
+____
+# **SET +**
+#### A Friend Game of Visual Sensations
 ___
-#### **Techologies Used**
+### **Techologies Used**
 * HTML
 * CSS
 * JavaScript
 ___
-[Game Source](https://www.setgame.com/sites/default/files/instructions/SET%20INSTRUCTIONS%20-%20ENGLISH.pdf)
+### **Sources**
+- [Game Source](https://www.setgame.com/sites/default/files/instructions/SET%20INSTRUCTIONS%20-%20ENGLISH.pdf)
 ___
-#### **Approach** 
-Intro Landing Page
+### **Rules of the Game**
+The player has the ability to click on 3 cards out of the 12 displayed cards on screen.
 
-- As a user, I want to click 'instructions', then read and understand the instructions. 
+For a winning point (+1), the 3 cards selected must have at least ONE similarity or NONE in the following features: 
+    
+    - the shape type
+    - number of shapes 
+    - color of shape 
 
-- As a user, I want to click 'Click to Start' button, to start a new game.
+A SET of 3 cards must be eighter **all the same in one feature OR all different in each individual feature**. Player recieves no point if this is not fulfilled. 
+___
+### **Approach** 
+User accesses the Intro page.
 
 ![Intro Page](/img/intro.jpg)
 
-- As a user, I want to click out of my instructions or click 'Click to Start' button.
+As a user, I want to click 'instructions', to access the intructions page.
 
 ![Intro Page](/img/instructions.jpg)
 
+As a user, I want to click out of my instructions or click 'Click to Start' button.
+
+The player is presented with a page of 12 cards.
+
 ![Intro Page](/img/gamePage.jpg)
 
-- As player A, I want to click on 3 card choices out of 12.
-- The window will display if it is a match or incorrect. If match, Player A recieves +1.
+___
 
-- As player B, I want to click on 3 card choices out of 12.
-- The window will display if it is a match or incorrect. If match, Player B recieves +1.
+Player A is prompted to play and selects 3 cards. A message indicates +point or not.
 
-- Game continues until deck is depleted. 
+Player B is prompted to play and selects 3 cards. A message indicates +point or not.
 
-- Winning page displays wining player.
+Score points are recorded on the top of screen.
 
-- As players, they can restart the game with the click of a button.
+Players continue to alternate in turns until a player reaches 10 points.
 
 ![Winning Page](/img/winningFrame.jpg)
 
+A message appears with the wining player.
+
+Players are prompted to restart the game.
