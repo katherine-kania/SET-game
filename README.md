@@ -16,13 +16,13 @@ Intro Landing Page
 
 - As a user, I want to click 'Click to Start' button, to start a new game.
 
-![Intro Page](game-project-1/img/intro.jpg)
+![Intro Page](/img/intro.jpg)
 
 - As a user, I want to click out of my instructions or click 'Click to Start' button.
 
-![Intro Page](game-project-1/img/instructions.jpg)
+![Intro Page](/img/instructions.jpg)
 
-![Intro Page](game-project-1/img/gamePage.jpg)
+![Intro Page](/img/gamePage.jpg)
 
 - As player A, I want to click on 3 card choices out of 12.
 - The window will display if it is a match or incorrect. If match, Player A recieves +1.
@@ -36,5 +36,5 @@ Intro Landing Page
 
 - As players, they can restart the game with the click of a button.
 
-![Winning Page](game-project-1/img/winningFrame.jpg)
+![Winning Page](/img/winningFrame.jpg)
 
