@@ -1,0 +1,86 @@
+* {
+    margin: 0 auto;
+}
+
+body {
+    color: #49274A;
+    padding: 0;
+    text-align: center;
+    background: linear-gradient(to top right, #f8EEE7, #a2a2a2);
+    background-attachment: fixed;
+    padding-top: 10%;
+}
+
+#senContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 40px;
+    width: 50%;
+    height: 50%; 
+    font-family: 'Shizuru', cursive;
+    justify-content: center;
+}
+
+.senBoxes, .carDiv {
+    border: 3px solid whitesmoke;
+    background-color: white;
+    width: 130px;
+    height: 180px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px 35px 35px 35px;
+    margin-top: 20%;
+    font-size: 60px;
+}
+
+#tagLine {
+    margin-top: 20px;
+    justify-content: center;
+}
+
+#buttonContainer {
+    margin-top: 50px;
+    float: center;
+}
+
+input {
+    border: none;
+    border-bottom: 2px solid whitesmoke;
+    background: linear-gradient(to top right, #f8EEE7, #a2a2a2);
+    background-attachment: fixed;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px;
+}
+
+#rulesSpace {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+#cardSpace {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    column-gap: 20px;
+    width: 50%;
+    height: 50%; 
+    font-family: 'Shizuru', cursive;
+    justify-content: center;
+}
+
+#topHeader {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+#senTitle {
+    font-family: 'Shizuru', cursive;
+    font-size: 60px;
+}
