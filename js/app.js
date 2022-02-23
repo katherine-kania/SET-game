@@ -53,9 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     cards.push({letter, color})
                 }
              }
-            return cards
-            // console.log('these are the cards', cards) 
+             console.log('these are the cards', cards) 
+             return cards
         }
+
+        playerChoiceCards = []
 
         // randomize card array
         const randomCard = (cards) => {
@@ -64,19 +66,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 const random = Math.floor(Math.random() * 27)
                 const cardLetter = cards[random].letter
                 const cardColor = cards[random].color
-                // console.log('these are the random letters', cardLetter)
+                //console.log('these are the random letters', cardLetter)
                 const cardRender = document.createElement('div')
                 cardRender.classList.add('cardDiv')
                 cardRender.innerHTML = cardLetter
+                cardRender.setAttribute('data-letter', cardLetter)
                 cardRender.style.color = cardColor
+                cardRender.setAttribute('data-color', cardColor)
                 cardSpace.appendChild(cardRender)
-                cardRender.addEventListener('click', compareCards)
+                cardRender.addEventListener('click', pushChoices)
             }
-            return cards 
+            
+        }
+        
+
+        const pushChoices = (event) => {
+            const playerChoice = event.target 
+            console.log('is this the data', playerChoice.dataset)
+            playerChoiceCards.push(playerChoice)
+            console.log('choices array', playerChoiceCards)
         }
         
         // compare cards
-        const compareCards = (event) => {
+        // an array of 3 objects - those objects will contain 2 keeys and 2 values 
+        // for example playerChoiceCards = [{}, {}, {}] 
+        // you will compare those objects by using bracket and dotnotation 
+        // for example if playerChoiceCards[0].color === playerChoiceCard[1].color && playerChoiceCards[1].color === playerChoiceCards[3]
+        const compareCards = (cards) => {
+            
             let roundWon = false
             for (i = 0; i < 3; i++){
                 if (cardLetter === cardLetter || cardColor === cardColor ){
@@ -88,12 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }        
-    
-
+        // console.log ('are they winners', compareCards())
+        
         const cards = deckBuilder()
-        console.log ('are they winners', compareCards)
         return randomCard(cards)
-
+        
         //identify if game is active
         let isGameActive = true
         // identify player A win variable
