@@ -6,6 +6,7 @@ const senTitle = document.querySelector('#senTitle')
 const cardSpace = document.querySelector('#cardSpace')
 const playerA = document.querySelector('#playerA')
 const playerB = document.querySelector('#playerB')
+const displayPlayer = document.querySelector('#display-player')
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -50,13 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // select random letter and add to div card
             for (let i = 0; i < LETTERS.length; i++) {
                 cardDiv.innerHTML = LETTERS[Math.floor(Math.random() * LETTERS.length)]
-                console.log (LETTERS[i])
+                // console.log ('these are the letters', LETTERS[i])
             }
             
              // select random color and add to div card
             for (let i = 0; i < COLORS.length; i++) {
                 cardDiv.style.color = COLORS[Math.floor(Math.random() * COLORS.length)]
-                console.log (COLORS[i])
+                // console.log ('these are the colors', COLORS[i])
             }
         }
 
@@ -67,6 +68,29 @@ document.addEventListener('DOMContentLoaded', () => {
         playerBname = document.getElementById('playerBname')
         playerB.innerHTML = playerBname.value + ':' 
         
+        // identify the current player
+        let currentPlayer = null
+
+        // change player from A to B
+        const changePlayer = () => {
+            // remove the current player status
+            displayPlayer.getElementsById.remove(`${currentPlayer}'s turn`)
+            // set current player to a new value
+            currentPlayer = currentPlayer === playerAname.value ? playerBname.value : playerAname.value 
+            // change the text of the player
+            displayPlayer.innerText = currentPlayer.value
+            // apply the curent player class to player
+            displayPlayer.getElementsById.add(`${currentPlayer}'s turn`)
+        }
+
+        // select 3 cards and store values 
+
+        // winning selections
+        // const winPoint =
+        // if (LETTERS === LETTERS || COLORS === COLORS){
+
+        // }
+
 
         // restart button created
         const restartButton = document.createElement('button')
@@ -85,34 +109,14 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
   
-       
-        // if (letter === letter || color === color || number === number){
-        //     roundWon = true
-        // } if {
-        //     (letter !== letter && color !== color && number !== number)
-        //     roundWon = true
-        // } else {
-        //     isRoundActive = false 
-        //     return
-        // }
-    
-    
-    // if (roundWon) {
-    //     displayResult(currentPlayer === 'A' ? playerAWon : playerBWon)
-    //     isGameActive = false 
-    //     return
 
 
 
-// // identify the current player
-// let currentPlayer = "A"
+//identify if game is active
+let isGameActive = true
 
-// //identify game activity
-// let isGameActive = true
+// identify player A win variable
+const playerAWon = 'playerAWon'
+// identify player B win variable
+const playerBWon = 'PlayerBWon'
 
-
-// identify the Deck with cards
-
-// winning cards
-
-//display the results
