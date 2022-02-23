@@ -65,15 +65,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // randomize card array
         function randomCard(cards) {
-            const random = Math.floor(Math.random() * 11)
-            const cardLetter = cards[random].letter
-            const cardColor = cards[random].color
             // create 12 cards by creating element div and redering value on it
-            const cardRender = document.createElement('div')
-            cardRender.classList.add('cardDiv')
-            cardRender.innerHTML = cardLetter
-            cardRender.style.color = cardColor
-            cardSpace.appendChild(cardRender)
+            for (let i = 0; i < 12; i++){
+                const random = Math.floor(Math.random() * 27)
+                const cardLetter = cards[random].letter
+                const cardColor = cards[random].color
+                console.log('these are the random letters', cardLetter)
+                const cardRender = document.createElement('div')
+                cardRender.classList.add('cardDiv')
+                cardRender.innerHTML = cardLetter
+                cardRender.style.color = cardColor
+                cardSpace.appendChild(cardRender)
+            }
         }
         const cards = deckBuilder()
         return randomCard(cards)

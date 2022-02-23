@@ -21,7 +21,7 @@ body {
     justify-content: center;
 }
 
-.senBoxes, .carDiv {
+.senBoxes, .cardDiv {
     border: 3px solid whitesmoke;
     background-color: white;
     width: 130px;
