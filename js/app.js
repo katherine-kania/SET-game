@@ -38,12 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
         senTitle.innerHTML = 'SEN'
     
         // create 12 divs with a class
-        for (let i = 0; i < 12; i++){
-            const cardDiv = document.createElement('div')
-            cardDiv.className = 'carDiv'
-            cardSpace.appendChild(cardDiv)
-            // console.log('these are the cards', cardDiv)
-        }
+        // for (let i = 0; i < 12; i++){
+        //     const cardDiv = document.createElement('div')
+        //     cardDiv.className = 'carDiv'
+        //     cardSpace.appendChild(cardDiv)
+        //     // console.log('these are the cards', cardDiv)
+        // }
         
         const deckBuilder = () => {
             // 2 arrays of the letter and color values
@@ -68,6 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const random = Math.floor(Math.random() * 11)
             const cardLetter = cards[random].letter
             const cardColor = cards[random].color
+            // create 12 cards by creating element div and redering value on it
+            const cardRender = document.createElement('div')
+            cardRender.classList.add('cardDiv')
+            cardRender.innerHTML = cardLetter
+            cardRender.style.color = cardColor
+            cardSpace.appendChild(cardRender)
         }
         const cards = deckBuilder()
         return randomCard(cards)
