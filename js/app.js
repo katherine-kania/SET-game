@@ -4,8 +4,8 @@ const rulesSpace = document.querySelector('#rulesSpace')
 const introContainer = document.querySelector('#introContainer')
 const senTitle = document.querySelector('#senTitle')
 const cardSpace = document.querySelector('#cardSpace')
-const playerA = document.querySelector('#playerAname')
-const playerB = document.querySelector('#playerBname')
+const playerA = document.querySelector('#playerA')
+const playerB = document.querySelector('#playerB')
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -35,21 +35,38 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault()
         introContainer.style['display'] = 'none'
         senTitle.innerHTML = 'SEN'
-        playerA.innerHTML = 'Player'
-
+    
         // create 12 divs with a class
         for (let i = 0; i < 12; i++){
             const cardDiv = document.createElement('div')
             cardDiv.className = 'carDiv'
-            cardDiv.textContent = "x"
             cardSpace.appendChild(cardDiv)
             // console.log('these are the cards', cardDiv)
-
-
-        }
         
-        // heading title and player names w/ score apear
-       
+            // Set the card values
+            const LETTERS = ['S', 'SS', 'SSS', 'E', 'EE', 'EEE', 'N', 'NN', 'NNN']
+            const COLORS = ['pink', 'green', 'blue']
+
+            // select random letter and add to div card
+            for (let i = 0; i < LETTERS.length; i++) {
+                cardDiv.innerHTML = LETTERS[Math.floor(Math.random() * LETTERS.length)]
+                console.log (LETTERS[i])
+            }
+            
+             // select random color and add to div card
+            for (let i = 0; i < COLORS.length; i++) {
+                cardDiv.style.color = COLORS[Math.floor(Math.random() * COLORS.length)]
+                console.log (COLORS[i])
+            }
+        }
+
+        // heading title and player input names and score points apear
+        playerAname = document.getElementById('playerAname')
+        playerA.innerHTML = playerAname.value + ':'
+        // console.log(playerAname)
+        playerBname = document.getElementById('playerBname')
+        playerB.innerHTML = playerBname.value + ':' 
+        
 
         // restart button created
         const restartButton = document.createElement('button')
@@ -67,19 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })
 
-
-// Set the card values
-const LETTERS = ['S', 'E', 'N']
-const COLORS = ['pink', 'green', 'blue']
-const NUMBERS = ['1', '2', '3']
-
-// loop through arrays
-const cardValues = () => {
-    let roundWon = false 
-    for (let i = 0; i < 3; i++){
-        const letter = LETTERS[i]
-        const color = COLORS[i]
-        const number = NUMBERS[i]
+  
        
         // if (letter === letter || color === color || number === number){
         //     roundWon = true
@@ -90,20 +95,14 @@ const cardValues = () => {
         //     isRoundActive = false 
         //     return
         // }
-    }
+    
     
     // if (roundWon) {
     //     displayResult(currentPlayer === 'A' ? playerAWon : playerBWon)
     //     isGameActive = false 
     //     return
-}
 
-// each card values
-// let senCard = {
-//     LETTERS: ''
-//     COLORS: ''
-//     NUMBERS: ''
-// }
+
 
 // // identify the current player
 // let currentPlayer = "A"
