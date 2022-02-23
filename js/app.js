@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         returnButton.id = 'returnButton'
         document.body.appendChild(returnButton)
 
+        //returns from rules to intro page
         returnButton.addEventListener('click', () => {
             returnButton.style['display'] = 'none'
             introContainer.style['display'] = 'block'
@@ -37,14 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         introContainer.style['display'] = 'none'
         senTitle.innerHTML = 'SEN'
     
-        // create 12 divs with a class
-        // for (let i = 0; i < 12; i++){
-        //     const cardDiv = document.createElement('div')
-        //     cardDiv.className = 'carDiv'
-        //     cardSpace.appendChild(cardDiv)
-        //     // console.log('these are the cards', cardDiv)
-        // }
-        
         const deckBuilder = () => {
             // 2 arrays of the letter and color values
             const LETTERS = ['S', 'SS', 'SSS', 'E', 'EE', 'EEE', 'N', 'NN', 'NNN']
@@ -63,40 +56,53 @@ document.addEventListener('DOMContentLoaded', () => {
             return cards
             // console.log('these are the cards', cards) 
         }
+
         // randomize card array
-        function randomCard(cards) {
+        const randomCard = (cards) => {
             // create 12 cards by creating element div and redering value on it
             for (let i = 0; i < 12; i++){
                 const random = Math.floor(Math.random() * 27)
                 const cardLetter = cards[random].letter
                 const cardColor = cards[random].color
-                console.log('these are the random letters', cardLetter)
+                // console.log('these are the random letters', cardLetter)
                 const cardRender = document.createElement('div')
                 cardRender.classList.add('cardDiv')
                 cardRender.innerHTML = cardLetter
                 cardRender.style.color = cardColor
                 cardSpace.appendChild(cardRender)
+                cardRender.addEventListener('click', compareCards)
             }
+            return cards 
         }
+        
+        // compare cards
+        const compareCards = (event) => {
+            let roundWon = false
+            for (i = 0; i < 3; i++){
+                if (cardLetter === cardLetter || cardColor === cardColor ){
+                    return roundWon = true
+                } else if (cardLetter !== cardLetter && cardColor !== cardcolor){
+                        return roundWon = true
+                }else{
+                    return roundWon = false
+                }
+            }
+        }        
+    
+
         const cards = deckBuilder()
+        console.log ('are they winners', compareCards)
         return randomCard(cards)
-        console.log ('these are the random cards', cards )
 
-            // // select random letter and add to div card
-            // for (let i = 0; i < LETTERS.length; i++) {
-            //     let letter = cardDiv.innerHTML = LETTERS[Math.floor(Math.random() * LETTERS.length)]
-            //     return letter
-            //     // console.log ('these are the letters', LETTERS[i])
-            // }
-            
-            //  // select random color and add to div card
-            // for (let i = 0; i < COLORS.length; i++) {
-            //     let color = cardDiv.style.color = COLORS[Math.floor(Math.random() * COLORS.length)]
-            //     return color
-            //     // console.log ('these are the colors', COLORS[i])
-            // }
-            
+        //identify if game is active
+        let isGameActive = true
+        // identify player A win variable
+        const playerAWon = 'playerAWon'
+        // identify player B win variable
+        const playerBWon = 'PlayerBWon'
+        
 
+        
         // heading title and player input names and score points apear
         score = 0
         playerAname = document.getElementById('playerAname') 
@@ -107,50 +113,25 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // identify the current player
         let currentPlayer = null
-
+        
         // change player from A to B
         const changePlayer = () => {
             // display the curent player status
             displayPlayer.innerText = currentPlayer
-     
+            
             // set current player to a new value
             currentPlayer = currentPlayer === playerAname ? playerBname : playerAname 
             return
         }
-        
 
-        // when player clicks 3 cards
-        
-        // compare the cards 
-        // const compareCards = (event) => {
-        //     // get value of cards selected
-        //     if (event.type == 3) {
+       
 
-        //     }
-        //     cardDiv = document.getElementById('cardDiv') 
-        //     console.log('this is the value', cardDiv[0])
-        
-        
-
-        // determine if winning point 
-        // add point to score
-
-
-
-
-        // winning selections
-        // const winPoint =
-        // if (LETTERS === LETTERS || COLORS === COLORS){
-
-        // }
-
-
-        // restart button created
+         // restart button created
         const restartButton = document.createElement('button')
         restartButton.innerHTML = 'restart'
         restartButton.id = 'restartButton'
         document.body.appendChild(restartButton)
-
+                    
         // restartButton.addEventListener('click', (event) => {
         //     restartButton.style['display'] = 'none'
         //     introContainer.style['display'] = 'block'
@@ -158,18 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
         //     cardSpace.style['display'] = 'none'
         // })
     })
-
+                    
 })
-
-  
-
-
-
-//identify if game is active
-let isGameActive = true
-
-// identify player A win variable
-const playerAWon = 'playerAWon'
-// identify player B win variable
-const playerBWon = 'PlayerBWon'
-
+                
+                
+                
+                
