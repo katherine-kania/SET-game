@@ -6,7 +6,7 @@ const senTitle = document.querySelector('#senTitle')
 const cardSpace = document.querySelector('#cardSpace')
 const playerA = document.querySelector('#playerA')
 const playerB = document.querySelector('#playerB')
-const displayPlayer = document.querySelector('#display-player')
+const displayPlayer = document.querySelector('#displayPlayer')
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -43,47 +43,91 @@ document.addEventListener('DOMContentLoaded', () => {
             cardDiv.className = 'carDiv'
             cardSpace.appendChild(cardDiv)
             // console.log('these are the cards', cardDiv)
+        }
         
-            // Set the card values
+        const deckBuilder = () => {
+            // 2 arrays of the letter and color values
             const LETTERS = ['S', 'SS', 'SSS', 'E', 'EE', 'EEE', 'N', 'NN', 'NNN']
             const COLORS = ['pink', 'green', 'blue']
-
-            // select random letter and add to div card
-            for (let i = 0; i < LETTERS.length; i++) {
-                cardDiv.innerHTML = LETTERS[Math.floor(Math.random() * LETTERS.length)]
-                // console.log ('these are the letters', LETTERS[i])
-            }
-            
-             // select random color and add to div card
-            for (let i = 0; i < COLORS.length; i++) {
-                cardDiv.style.color = COLORS[Math.floor(Math.random() * COLORS.length)]
-                // console.log ('these are the colors', COLORS[i])
-            }
+                
+            //loop through the letters while looping through the values 
+            //to create the object with both values
+            const cards = []
+            for (let l = 0; l < LETTERS.length; l++) {
+                for (let c = 0; c < COLORS.length; c++) {
+                    const letter = LETTERS[l]
+                    const color = COLORS[c]
+                    cards.push({letter, color})
+                }
+             }
+            return cards
+            // console.log('these are the cards', cards) 
         }
+        // randomize card array
+        function randomCard(cards) {
+            const random = Math.floor(Math.random() * 11)
+            const cardLetter = cards[random].letter
+            const cardColor = cards[random].color
+        }
+        const cards = deckBuilder()
+        return randomCard(cards)
+        console.log ('these are the random cards', cards )
+
+            // // select random letter and add to div card
+            // for (let i = 0; i < LETTERS.length; i++) {
+            //     let letter = cardDiv.innerHTML = LETTERS[Math.floor(Math.random() * LETTERS.length)]
+            //     return letter
+            //     // console.log ('these are the letters', LETTERS[i])
+            // }
+            
+            //  // select random color and add to div card
+            // for (let i = 0; i < COLORS.length; i++) {
+            //     let color = cardDiv.style.color = COLORS[Math.floor(Math.random() * COLORS.length)]
+            //     return color
+            //     // console.log ('these are the colors', COLORS[i])
+            // }
+            
 
         // heading title and player input names and score points apear
-        playerAname = document.getElementById('playerAname')
-        playerA.innerHTML = playerAname.value + ':'
+        score = 0
+        playerAname = document.getElementById('playerAname') 
+        playerA.innerText = 'Player A | ' + playerAname.value + ': ' + score
         // console.log(playerAname)
         playerBname = document.getElementById('playerBname')
-        playerB.innerHTML = playerBname.value + ':' 
+        playerB.innerText = 'Player A | ' + playerBname.value + ': ' + score
         
         // identify the current player
         let currentPlayer = null
 
         // change player from A to B
         const changePlayer = () => {
-            // remove the current player status
-            displayPlayer.getElementsById.remove(`${currentPlayer}'s turn`)
+            // display the curent player status
+            displayPlayer.innerText = currentPlayer
+     
             // set current player to a new value
-            currentPlayer = currentPlayer === playerAname.value ? playerBname.value : playerAname.value 
-            // change the text of the player
-            displayPlayer.innerText = currentPlayer.value
-            // apply the curent player class to player
-            displayPlayer.getElementsById.add(`${currentPlayer}'s turn`)
+            currentPlayer = currentPlayer === playerAname ? playerBname : playerAname 
+            return
         }
+        
 
-        // select 3 cards and store values 
+        // when player clicks 3 cards
+        
+        // compare the cards 
+        // const compareCards = (event) => {
+        //     // get value of cards selected
+        //     if (event.type == 3) {
+
+        //     }
+        //     cardDiv = document.getElementById('cardDiv') 
+        //     console.log('this is the value', cardDiv[0])
+        
+        
+
+        // determine if winning point 
+        // add point to score
+
+
+
 
         // winning selections
         // const winPoint =

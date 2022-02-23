@@ -85,3 +85,8 @@ button {
     font-family: 'Shizuru', cursive;
     font-size: 60px;
 }
+
+#displayPlayer {
+    display: flex;
+    justify-content: center;
+}
