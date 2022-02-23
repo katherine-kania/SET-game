@@ -2,6 +2,7 @@ const rulesButton = document.querySelector('#rulesButton')
 const startButton = document.querySelector('#startButton')
 const rulesSpace = document.querySelector('#rulesSpace')
 const introContainer = document.querySelector('#introContainer')
+const senTitle = document.querySelector('#senTitle')
 const cardSpace = document.querySelector('#cardSpace')
 const playerA = document.querySelector('#playerAname')
 const playerB = document.querySelector('#playerBname')
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // when rules button is clicked, popover appears with rules
     rulesButton.addEventListener('click', (event) => {
         event.preventDefault()
+        introContainer.style['display'] = 'none'
         introContainer.style['display'] = 'none'
         rulesSpace.style['display'] = 'block'
         rulesSpace.src = 'img/rules-01.png'
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         returnButton.addEventListener('click', () => {
             returnButton.style['display'] = 'none'
             introContainer.style['display'] = 'block'
+            introContainer.style['display'] = 'block'
             rulesSpace.style['display'] = 'none'
         })
     })
@@ -31,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
     startButton.addEventListener('click', (event) => {
         event.preventDefault()
         introContainer.style['display'] = 'none'
+        senTitle.innerHTML = 'SEN'
+        playerA.innerHTML = 'Player'
 
         // create 12 divs with a class
         for (let i = 0; i < 12; i++){
@@ -40,10 +45,24 @@ document.addEventListener('DOMContentLoaded', () => {
             cardSpace.appendChild(cardDiv)
             // console.log('these are the cards', cardDiv)
 
+
         }
+        
+        // heading title and player names w/ score apear
+       
 
+        // restart button created
+        const restartButton = document.createElement('button')
+        restartButton.innerHTML = 'restart'
+        restartButton.id = 'restartButton'
+        document.body.appendChild(restartButton)
 
-
+        // restartButton.addEventListener('click', (event) => {
+        //     restartButton.style['display'] = 'none'
+        //     introContainer.style['display'] = 'block'
+        //     gettingStarted.style['display'] = 'block'
+        //     cardSpace.style['display'] = 'none'
+        // })
     })
 
 })
@@ -54,31 +73,47 @@ const LETTERS = ['S', 'E', 'N']
 const COLORS = ['pink', 'green', 'blue']
 const NUMBERS = ['1', '2', '3']
 
-// identify the current player
-let currentPlayer = "A"
+// loop through arrays
+const cardValues = () => {
+    let roundWon = false 
+    for (let i = 0; i < 3; i++){
+        const letter = LETTERS[i]
+        const color = COLORS[i]
+        const number = NUMBERS[i]
+       
+        // if (letter === letter || color === color || number === number){
+        //     roundWon = true
+        // } if {
+        //     (letter !== letter && color !== color && number !== number)
+        //     roundWon = true
+        // } else {
+        //     isRoundActive = false 
+        //     return
+        // }
+    }
+    
+    // if (roundWon) {
+    //     displayResult(currentPlayer === 'A' ? playerAWon : playerBWon)
+    //     isGameActive = false 
+    //     return
+}
+
+// each card values
+// let senCard = {
+//     LETTERS: ''
+//     COLORS: ''
+//     NUMBERS: ''
+// }
+
+// // identify the current player
+// let currentPlayer = "A"
+
+// //identify game activity
+// let isGameActive = true
 
 
 // identify the Deck with cards
-class senDeck {
-    constructor(cards) {
-        this.cards = cards
-    }
-}
 
-// identify the card values
-class senCard {
-    constructor(letter, color, number) {
-        this.letter = letter
-        this.color = color
-        this.number = number 
-    }
-}
+// winning cards
 
-// return the deck
-function freshDeck() {
-    return LETTERS.flatMap(letter => {
-        return COLORS.map(value => {
-
-        })
-    })
-}
+//display the results
