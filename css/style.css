@@ -3,12 +3,21 @@
 }
 
 body {
-    color: #49274A;
+    color: seashell;
     padding: 0;
     text-align: center;
-    background: linear-gradient(to top right, #f8EEE7, #a2a2a2);
+    background: linear-gradient(to top right, hotpink, blue, lawngreen);
     background-attachment: fixed;
     padding-top: 10%;
+}
+#s {
+    color: hotpink;
+}
+#e {
+    color: blue;
+}
+#n {
+    color: lawngreen;
 }
 
 #senContainer {
@@ -22,8 +31,8 @@ body {
 }
 
 .senBoxes, .cardDiv {
-    border: 3px solid whitesmoke;
-    background-color: white;
+    border: 3px solid silver;
+    background-color: snow;
     width: 130px;
     height: 180px; 
     display: flex;
@@ -31,7 +40,10 @@ body {
     justify-content: center;
     border-radius: 10px 35px 35px 35px;
     margin-top: 20%;
-    font-size: 60px;
+    font-size: 50px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    box-shadow: 5px 10px rgba(192, 192, 192, 0.687);
 }
 
 #tagLine {
@@ -73,6 +85,7 @@ button {
     font-family: 'Shizuru', cursive;
     justify-content: center;
     font-size: 30px;
+    padding-bottom: 20px;
 }
 
 #topHeader {
@@ -91,3 +104,4 @@ button {
     justify-content: center;
     padding: 15px;
 }
+

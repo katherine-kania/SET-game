@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const deckBuilder = () => {
             // 2 arrays of the letter and color values
             const LETTERS = ['S', 'SS', 'SSS', 'E', 'EE', 'EEE', 'N', 'NN', 'NNN']
-            const COLORS = ['pink', 'green', 'blue']
+            const COLORS = ['hotpink', 'lawngreen', 'blue']
                 
             //loop through the letters while looping through the values 
             //to create the object with both values
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('is this the data', playerChoice.dataset)
             playerChoiceCards.push(playerChoice)
             // console.log('choices array', playerChoiceCards)
-            
+            playerChoice.style.backgroundColor = 'yellow'
             // set to 3 card selections for comparison
             const numberOfCards = playerChoiceCards.length
             if (numberOfCards === 3) {
@@ -118,16 +118,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // update html text score
         // if score = current player wins
         const matched = ()=>{
-            if (currentPlayer === playerA){
+            if (currentPlayer === 'A'){
                 playerA.innerHTML = `Player A: ${score + 1}`
             }
-            if (currentPlayer === playerB){
+            if (currentPlayer === 'B'){
                 playerB.innerHTML = `Player B: ${score + 1}`
             }
             changePlayer()
         }
-        
-            
+           
         
         let currentPlayer = 'A'
         displayPlayer.innerHTML = `Player ${currentPlayer}'s play`
