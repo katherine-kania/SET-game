@@ -6,7 +6,7 @@ const senTitle = document.querySelector('#senTitle')
 const cardSpace = document.querySelector('#cardSpace')
 const playerA = document.querySelector('#playerA')
 const playerB = document.querySelector('#playerB')
-const displayPlayer = document.querySelector('.displayPlayer')
+const displayPlayer = document.querySelector('.display-player')
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -40,8 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let isGameActive = true
         let playerChoiceCards = []
-        let currentPlayer = playerA
+   
         let score = 0
+        playerA.innerHTML = 'Player A: ' + score
+        playerB.innerHTML = 'Player B: ' + score
     
         const deckBuilder = () => {
             // 2 arrays of the letter and color values
@@ -79,9 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cardRender.setAttribute('data-color', cardColor)
                 cardSpace.appendChild(cardRender)
                 cardRender.addEventListener('click', pushChoices)
-
-            }
-            
+            }    
         }
         
         const pushChoices = (event) => {
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 matched()
             } else {
                 changePlayer()
-            }   
+            }  
         } 
         
         
@@ -118,22 +118,28 @@ document.addEventListener('DOMContentLoaded', () => {
         // update html text score
         // if score = current player wins
         const matched = ()=>{
+            if (currentPlayer === playerA){
+                playerA.innerHTML = `Player A: ${score + 1}`
+            }
+            if (currentPlayer === playerB){
+                playerB.innerHTML = `Player B: ${score + 1}`
+            }
+            changePlayer()
+        }
         
             
         
-                     
-        
-        
+        let currentPlayer = 'A'
+        displayPlayer.innerHTML = `Player ${currentPlayer}'s play`
         // change player from A to B
+        // remove current status
+        // add B
         // update display status
-        const changePlayer = () => {
-            // remove the current player status
-            displayPlayer.innerHTML(`player${currentPlayer}`)
-            // set current player to a new value
-            currentPlayer = currentPlayer === playerA ? playerB : playerA 
-            // change the text of the player
-            displayPlayer.innerHTML = currentPlayer
-            // apply the curent player class to player
+        // indicate win
+        const changePlayer = (displayStatus) => {
+            displayPlayer.classList.remove(`player${currentPlayer}`)
+            currentPlayer = currentPlayer === 'A' ? 'B' : 'A' 
+            displayPlayer.innerText = `Player ${currentPlayer}'s play`
             displayPlayer.classList.add(`player${currentPlayer}`)
         }
                 

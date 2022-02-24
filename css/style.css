@@ -40,7 +40,7 @@ body {
 }
 
 #buttonContainer {
-    margin-top: 50px;
+    margin-top: 50px;a
     float: center;
 }
 
@@ -86,7 +86,7 @@ button {
     font-size: 60px;
 }
 
-.displayPlayer {
+.display-player {
     display: flex;
     justify-content: center;
     padding: 15px;
