@@ -49,6 +49,8 @@ body {
 #tagLine {
     margin-top: 20px;
     justify-content: center;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 40px;
 }
 
 #buttonContainer {

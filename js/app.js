@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         introContainer.style['display'] = 'none'
         senTitle.innerHTML = 'SEN'
         
-        let isGameActive = true
         let playerChoiceCards = []
    
         let score = 0
@@ -86,9 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const pushChoices = (event) => {
             const playerChoice = event.target 
-            console.log('is this the data', playerChoice.dataset)
+            // console.log('is this the data', playerChoice.dataset)
             playerChoiceCards.push(playerChoice)
-            // console.log('choices array', playerChoiceCards)
+            console.log('choices array', playerChoiceCards)
             playerChoice.style.backgroundColor = 'yellow'
             // set to 3 card selections for comparison
             const numberOfCards = playerChoiceCards.length
@@ -103,10 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // you will compare those objects by using bracket and dotnotation 
         // for example if playerChoiceCards[0].color === playerChoiceCard[1].color && playerChoiceCards[1].color === playerChoiceCards[3]
         const compareCards = () => {
-            console.log ('these are the cards', playerChoiceCards)
-            if (playerChoiceCards[0].color === playerChoiceCards[1].color && playerChoiceCards[1].color === playerChoiceCards[2].color){
+            // console.log ( 'these are the data sets', playerChoiceCards[0].dataset.color, playerChoiceCards[1].dataset.color, playerChoiceCards[2].dataset.color)
+            if (playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color && playerChoiceCards[1].dataset.color === playerChoiceCards[2].dataset.color){
                 matched()
-            } else if (playerChoiceCards[0].letter === playerChoiceCards[1].letter && playerChoiceCards[1].letter === playerChoiceCards[2].letter){
+            } else if (playerChoiceCards[0].dataset.letter === playerChoiceCards[1].dataset.letter && playerChoiceCards[1].dataset.letter === playerChoiceCards[2].dataset.letter){
                 matched()
             } else {
                 changePlayer()
@@ -125,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentPlayer === 'B'){
                 playerB.innerHTML = `Player B: ${score + 1}`
             }
-            changePlayer()
             reshuffleCards()
         }
            
@@ -143,18 +141,26 @@ document.addEventListener('DOMContentLoaded', () => {
             displayPlayer.innerText = `Player ${currentPlayer}'s play`
             displayPlayer.classList.add(`player${currentPlayer}`)
         }
-                
-        const reshuffleCards = () => {
-            console.log('these are the old cards', cardSpace)
-            const oldCards = cardSpace.getElementsByClassName('cardDiv')
-            remove(oldCards)
-
-            const cards = deckBuilder()
-            randomCard(cards)
-        }
 
         const cards = deckBuilder()
         randomCard(cards)
+                
+        const reshuffleCards = (cards) => {
+            // console.log('these are the old cards', cardSpace)
+            if ( score !== 10 ){
+                randomCard(cards)
+                changePlayer()
+                // const oldCards = document.querySelector('.cardDiv')
+                // cardSpace.replaceChild(oldCards, () => {
+                //     cards = deckBuilder()
+                //     randomCard(cards)
+                //     changePlayer()
+                // })
+            } else {
+                displayPlayer.innerText = 'Game Over'
+            }
+        }
+
 
    
          // restart button created for a new game
