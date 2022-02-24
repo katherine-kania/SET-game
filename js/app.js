@@ -7,6 +7,11 @@ const cardSpace = document.querySelector('#cardSpace')
 const playerA = document.querySelector('#playerA')
 const playerB = document.querySelector('#playerB')
 const displayPlayer = document.querySelector('.display-player')
+let playerTurn = true
+let currentPlayer = ''
+
+
+let playerChoiceCards = []
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -38,17 +43,28 @@ document.addEventListener('DOMContentLoaded', () => {
         introContainer.style['display'] = 'none'
         senTitle.innerHTML = 'SEN'
         
-        let playerChoiceCards = []
-   
         let score = 0
         playerA.innerHTML = 'Player A: ' + score
         playerB.innerHTML = 'Player B: ' + score
-    
+        
+        
+        const playerSwitch = () => {
+            if (playerTurn === true){
+                currentPlayer = 'A' 
+            } else if (playerTurn === false) {
+                currentPlayer = 'B'
+            }  
+            displayPlayer.innerHTML = `Player ${currentPlayer}'s play`
+        }
+
+        playerSwitch(playerTurn)
+       
+        
         const deckBuilder = () => {
             // 2 arrays of the letter and color values
             const LETTERS = ['S', 'SS', 'SSS', 'E', 'EE', 'EEE', 'N', 'NN', 'NNN']
             const COLORS = ['hotpink', 'lawngreen', 'blue']
-                
+            
             //loop through the letters while looping through the values 
             //to create the object with both values
             const cards = []
@@ -58,12 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     const color = COLORS[c]
                     cards.push({letter, color})
                 }
-             }
+            }
             //  console.log('these are the cards', cards) 
-             return cards
+            return cards
         }
-
-
+        
+        
         // randomize card array
         const randomCard = (cards) => {
             // create 12 cards by creating element div and redering value on it
@@ -83,35 +99,42 @@ document.addEventListener('DOMContentLoaded', () => {
             }    
         }
         
+        
         const pushChoices = (event) => {
             const playerChoice = event.target 
             // console.log('is this the data', playerChoice.dataset)
             playerChoiceCards.push(playerChoice)
-            console.log('choices array', playerChoiceCards)
+            // console.log('choices array', playerChoiceCards)
             playerChoice.style.backgroundColor = 'yellow'
             // set to 3 card selections for comparison
             const numberOfCards = playerChoiceCards.length
             if (numberOfCards === 3) {
                 compareCards()
+                playerSwitch(playerTurn)
+                //if player = A switich intertext to B and if player = B switch intertext to A 
+                // playerChoiceCards = []
+                // playerChoice.style.backgroundColor = 'snow'
             }
+            
         }
         
         // compare cards
-        // an array of 3 objects - those objects will contain 2 keeys and 2 values 
+        // an array of 3 objects - those objects will contain 2 keys and 2 values 
         // for example playerChoiceCards = [{}, {}, {}] 
         // you will compare those objects by using bracket and dotnotation 
         // for example if playerChoiceCards[0].color === playerChoiceCard[1].color && playerChoiceCards[1].color === playerChoiceCards[3]
         const compareCards = () => {
             // console.log ( 'these are the data sets', playerChoiceCards[0].dataset.color, playerChoiceCards[1].dataset.color, playerChoiceCards[2].dataset.color)
             if (playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color && playerChoiceCards[1].dataset.color === playerChoiceCards[2].dataset.color){
-                matched()
+                matched() 
             } else if (playerChoiceCards[0].dataset.letter === playerChoiceCards[1].dataset.letter && playerChoiceCards[1].dataset.letter === playerChoiceCards[2].dataset.letter){
-                matched()
-            } else {
-                changePlayer()
-                reshuffleCards()
-            }  
+                matched() 
+            } else{
+                playerTurn = !playerTurn
+                playerChoiceCards = []
+            }
         } 
+       
         
         
         // if matched add score 
@@ -120,49 +143,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const matched = ()=>{
             if (currentPlayer === 'A'){
                 playerA.innerHTML = `Player A: ${score + 1}`
+                playerTurn = false 
+                playerChoiceCards = []
             }
-            if (currentPlayer === 'B'){
+            else if (currentPlayer === 'B'){
                 playerB.innerHTML = `Player B: ${score + 1}`
+                playerTurn = true
+                playerChoiceCards = [] 
             }
-            reshuffleCards()
         }
            
-        
-        let currentPlayer = 'A'
-        displayPlayer.innerHTML = `Player ${currentPlayer}'s play`
-        // change player from A to B
-        // remove current status
-        // add B
-        // update display status
-        // indicate win
-        const changePlayer = (displayStatus) => {
-            displayPlayer.classList.remove(`player${currentPlayer}`)
-            currentPlayer = currentPlayer === 'A' ? 'B' : 'A' 
-            displayPlayer.innerText = `Player ${currentPlayer}'s play`
-            displayPlayer.classList.add(`player${currentPlayer}`)
-        }
-
         const cards = deckBuilder()
         randomCard(cards)
-                
-        const reshuffleCards = (cards) => {
-            // console.log('these are the old cards', cardSpace)
-            if ( score !== 10 ){
-                randomCard(cards)
-                changePlayer()
-                // const oldCards = document.querySelector('.cardDiv')
-                // cardSpace.replaceChild(oldCards, () => {
-                //     cards = deckBuilder()
-                //     randomCard(cards)
-                //     changePlayer()
-                // })
-            } else {
-                displayPlayer.innerText = 'Game Over'
-            }
-        }
+        
+           
 
-
-   
          // restart button created for a new game
         const restartButton = document.createElement('button')
         restartButton.innerHTML = 'restart'
