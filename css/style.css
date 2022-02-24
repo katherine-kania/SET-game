@@ -94,6 +94,8 @@ button {
     display: flex;
     justify-content: space-around;
     align-items: baseline;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
 }
 
 #senTitle {
@@ -104,6 +106,16 @@ button {
 .display-player {
     display: flex;
     justify-content: center;
-    padding: 15px;
+    padding: 10px;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 30px;
+    margin-bottom: -10px;
+    color: yellow;
+}
+
+button {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+    margin: 20px;
 }
 
