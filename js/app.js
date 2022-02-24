@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
         senTitle.innerHTML = 'SEN'
         
         let score = 0
-        playerA.innerHTML = 'Player A: ' + score
-        playerB.innerHTML = 'Player B: ' + score
+        playerA.innerHTML = 'Player A : ' + score
+        playerB.innerHTML = 'Player B : ' + score
         
         
         const playerSwitch = () => {
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         
         // randomize card array
-        const randomCard = (cards) => {
+        const randomCard = () => {
             // create 12 cards by creating element div and redering value on it
             for (let i = 0; i < 12; i++){
                 const random = Math.floor(Math.random() * 27)
@@ -127,15 +127,28 @@ document.addEventListener('DOMContentLoaded', () => {
             // console.log ( 'these are the data sets', playerChoiceCards[0].dataset.color, playerChoiceCards[1].dataset.color, playerChoiceCards[2].dataset.color)
             if (playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color && playerChoiceCards[1].dataset.color === playerChoiceCards[2].dataset.color){
                 matched() 
+                // console.log ('this is the choices', playerChoiceCards)
+                playerChoiceCards = []
+                
             } else if (playerChoiceCards[0].dataset.letter === playerChoiceCards[1].dataset.letter && playerChoiceCards[1].dataset.letter === playerChoiceCards[2].dataset.letter){
                 matched() 
+                // console.log ('this is the choices', playerChoiceCards)
+                playerChoiceCards = []
+                
             } else{
                 playerTurn = !playerTurn
                 playerChoiceCards = []
+            }  
+            const oldCards = document.getElementsByClassName('cardDiv')
+            console.log ('these are old cards', oldCards)
+            for (let i = 0; i < oldCards.length; i++){
+                cardSpace.remove(oldCards)
             }
+            
         } 
-       
-        
+        // let allCards = cardSpace.getElementsByClassName('cardDiv')
+        // allCards.style.backgroundColor = 'snow'
+   
         
         // if matched add score 
         // update html text score
@@ -144,14 +157,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentPlayer === 'A'){
                 playerA.innerHTML = `Player A: ${score + 1}`
                 playerTurn = false 
-                playerChoiceCards = []
+                
             }
             else if (currentPlayer === 'B'){
                 playerB.innerHTML = `Player B: ${score + 1}`
                 playerTurn = true
-                playerChoiceCards = [] 
+                
             }
+           
         }
+
            
         const cards = deckBuilder()
         randomCard(cards)
