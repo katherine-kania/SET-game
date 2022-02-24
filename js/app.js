@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 matched()
             } else {
                 changePlayer()
+                reshuffleCards()
             }  
         } 
         
@@ -125,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 playerB.innerHTML = `Player B: ${score + 1}`
             }
             changePlayer()
+            reshuffleCards()
         }
            
         
@@ -142,6 +144,15 @@ document.addEventListener('DOMContentLoaded', () => {
             displayPlayer.classList.add(`player${currentPlayer}`)
         }
                 
+        const reshuffleCards = () => {
+            console.log('these are the old cards', cardSpace)
+            const oldCards = cardSpace.getElementsByClassName('cardDiv')
+            remove(oldCards)
+
+            const cards = deckBuilder()
+            randomCard(cards)
+        }
+
         const cards = deckBuilder()
         randomCard(cards)
 
@@ -151,17 +162,14 @@ document.addEventListener('DOMContentLoaded', () => {
         restartButton.innerHTML = 'restart'
         restartButton.id = 'restartButton'
         document.body.appendChild(restartButton)
+        restartButton.addEventListener('click', (event) => {
+            location.reload(true)
+        })
                     
     })
     
 })
 
 
-// restartButton.addEventListener('click', (event) => {
-//     restartButton.style['display'] = 'none'
-//     introContainer.style['display'] = 'block'
-//     gettingStarted.style['display'] = 'block'
-//     cardSpace.style['display'] = 'none'
-// })
-                
+   
                 
