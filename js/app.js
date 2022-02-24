@@ -39,8 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
         senTitle.innerHTML = 'SEN'
         
         let isGameActive = true
-        
-        playerChoiceCards = []
+        let playerChoiceCards = []
+        let currentPlayer = playerA
+        let score = 0
     
         const deckBuilder = () => {
             // 2 arrays of the letter and color values
@@ -101,35 +102,30 @@ document.addEventListener('DOMContentLoaded', () => {
         // for example playerChoiceCards = [{}, {}, {}] 
         // you will compare those objects by using bracket and dotnotation 
         // for example if playerChoiceCards[0].color === playerChoiceCard[1].color && playerChoiceCards[1].color === playerChoiceCards[3]
-        const compareCards = (playerChoiceCards) => {
+        const compareCards = () => {
+            console.log ('these are the cards', playerChoiceCards)
             if (playerChoiceCards[0].color === playerChoiceCards[1].color && playerChoiceCards[1].color === playerChoiceCards[2].color){
                 matched()
             } else if (playerChoiceCards[0].letter === playerChoiceCards[1].letter && playerChoiceCards[1].letter === playerChoiceCards[2].letter){
                 matched()
             } else {
-                false
+                changePlayer()
             }   
         } 
         
+        
+        // if matched add score 
+        // update html text score
+        // if score = current player wins
         const matched = ()=>{
-           playerChoiceCards[0].classList.add('match')
-           playerChoiceCards[1].classList.add('match')
-           playerChoiceCards[2].classList.add('match')
-    
-        }
-
-        // if (roundWon === true) {
-            //     addScore(currentPlayer === playerA ? playerAWinsPoint : playerBWinsPoint)
-            //     return
-            // }else {
-                //     isGameActive = false
-                // }
-                
+        
+            
+        
                      
-        // identify the current player
-        let currentPlayer = playerA
+        
         
         // change player from A to B
+        // update display status
         const changePlayer = () => {
             // remove the current player status
             displayPlayer.innerHTML(`player${currentPlayer}`)
@@ -144,31 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const cards = deckBuilder()
         randomCard(cards)
 
-        let score = 0
-        // add point to score
-        const addScore = (type) => {
-            switch(type){
-                case playerAWinsPoint:
-                    displayPlayer.innerHTML = 'Player A won!'
-                    break
-                case playerOWon:
-                    displayPlayer.innerHTML = 'Player B won!'
-            }
-        }
-        
-        // display the results
-        const displayResult = (type) => {
-            switch(type){
-                case playerXWon:
-                    displayPlayer.innerHTML = 'Player A won!'
-                    break
-                case playerOWon:
-                    displayPlayer.innerHTML = 'Player B won!'
-            }
-        }
-       
-
-         // restart button created
+   
+         // restart button created for a new game
         const restartButton = document.createElement('button')
         restartButton.innerHTML = 'restart'
         restartButton.id = 'restartButton'
