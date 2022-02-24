@@ -44,12 +44,12 @@ body {
     float: center;
 }
 
-input {
+/* input {
     border: none;
     border-bottom: 2px solid whitesmoke;
     background: linear-gradient(to top right, #f8EEE7, #a2a2a2);
     background-attachment: fixed;
-}
+} */
 
 button {
     margin-top: 20px;
@@ -86,7 +86,8 @@ button {
     font-size: 60px;
 }
 
-#displayPlayer {
+.displayPlayer {
     display: flex;
     justify-content: center;
+    padding: 15px;
 }

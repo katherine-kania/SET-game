@@ -6,7 +6,7 @@ const senTitle = document.querySelector('#senTitle')
 const cardSpace = document.querySelector('#cardSpace')
 const playerA = document.querySelector('#playerA')
 const playerB = document.querySelector('#playerB')
-const displayPlayer = document.querySelector('#displayPlayer')
+const displayPlayer = document.querySelector('.displayPlayer')
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -37,6 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault()
         introContainer.style['display'] = 'none'
         senTitle.innerHTML = 'SEN'
+        
+        let isGameActive = true
+        
+        playerChoiceCards = []
     
         const deckBuilder = () => {
             // 2 arrays of the letter and color values
@@ -53,11 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     cards.push({letter, color})
                 }
              }
-             console.log('these are the cards', cards) 
+            //  console.log('these are the cards', cards) 
              return cards
         }
 
-        playerChoiceCards = []
 
         // randomize card array
         const randomCard = (cards) => {
@@ -75,16 +78,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 cardRender.setAttribute('data-color', cardColor)
                 cardSpace.appendChild(cardRender)
                 cardRender.addEventListener('click', pushChoices)
+
             }
             
         }
         
-
         const pushChoices = (event) => {
             const playerChoice = event.target 
             console.log('is this the data', playerChoice.dataset)
             playerChoiceCards.push(playerChoice)
-            console.log('choices array', playerChoiceCards)
+            // console.log('choices array', playerChoiceCards)
+            
+            // set to 3 card selections for comparison
+            const numberOfCards = playerChoiceCards.length
+            if (numberOfCards === 3) {
+                compareCards()
+            }
         }
         
         // compare cards
@@ -92,54 +101,71 @@ document.addEventListener('DOMContentLoaded', () => {
         // for example playerChoiceCards = [{}, {}, {}] 
         // you will compare those objects by using bracket and dotnotation 
         // for example if playerChoiceCards[0].color === playerChoiceCard[1].color && playerChoiceCards[1].color === playerChoiceCards[3]
-        const compareCards = (cards) => {
-            
-            let roundWon = false
-            for (i = 0; i < 3; i++){
-                if (cardLetter === cardLetter || cardColor === cardColor ){
-                    return roundWon = true
-                } else if (cardLetter !== cardLetter && cardColor !== cardcolor){
-                        return roundWon = true
-                }else{
-                    return roundWon = false
-                }
-            }
-        }        
-        // console.log ('are they winners', compareCards())
+        const compareCards = (playerChoiceCards) => {
+            if (playerChoiceCards[0].color === playerChoiceCards[1].color && playerChoiceCards[1].color === playerChoiceCards[2].color){
+                matched()
+            } else if (playerChoiceCards[0].letter === playerChoiceCards[1].letter && playerChoiceCards[1].letter === playerChoiceCards[2].letter){
+                matched()
+            } else {
+                false
+            }   
+        } 
         
-        const cards = deckBuilder()
-        return randomCard(cards)
-        
-        //identify if game is active
-        let isGameActive = true
-        // identify player A win variable
-        const playerAWon = 'playerAWon'
-        // identify player B win variable
-        const playerBWon = 'PlayerBWon'
-        
+        const matched = ()=>{
+           playerChoiceCards[0].classList.add('match')
+           playerChoiceCards[1].classList.add('match')
+           playerChoiceCards[2].classList.add('match')
+    
+        }
 
-        
-        // heading title and player input names and score points apear
-        score = 0
-        playerAname = document.getElementById('playerAname') 
-        playerA.innerText = 'Player A | ' + playerAname.value + ': ' + score
-        // console.log(playerAname)
-        playerBname = document.getElementById('playerBname')
-        playerB.innerText = 'Player A | ' + playerBname.value + ': ' + score
-        
+        // if (roundWon === true) {
+            //     addScore(currentPlayer === playerA ? playerAWinsPoint : playerBWinsPoint)
+            //     return
+            // }else {
+                //     isGameActive = false
+                // }
+                
+                     
         // identify the current player
-        let currentPlayer = null
+        let currentPlayer = playerA
         
         // change player from A to B
         const changePlayer = () => {
-            // display the curent player status
-            displayPlayer.innerText = currentPlayer
-            
+            // remove the current player status
+            displayPlayer.innerHTML(`player${currentPlayer}`)
             // set current player to a new value
-            currentPlayer = currentPlayer === playerAname ? playerBname : playerAname 
-            return
+            currentPlayer = currentPlayer === playerA ? playerB : playerA 
+            // change the text of the player
+            displayPlayer.innerHTML = currentPlayer
+            // apply the curent player class to player
+            displayPlayer.classList.add(`player${currentPlayer}`)
         }
+                
+        const cards = deckBuilder()
+        randomCard(cards)
 
+        let score = 0
+        // add point to score
+        const addScore = (type) => {
+            switch(type){
+                case playerAWinsPoint:
+                    displayPlayer.innerHTML = 'Player A won!'
+                    break
+                case playerOWon:
+                    displayPlayer.innerHTML = 'Player B won!'
+            }
+        }
+        
+        // display the results
+        const displayResult = (type) => {
+            switch(type){
+                case playerXWon:
+                    displayPlayer.innerHTML = 'Player A won!'
+                    break
+                case playerOWon:
+                    displayPlayer.innerHTML = 'Player B won!'
+            }
+        }
        
 
          // restart button created
@@ -148,16 +174,16 @@ document.addEventListener('DOMContentLoaded', () => {
         restartButton.id = 'restartButton'
         document.body.appendChild(restartButton)
                     
-        // restartButton.addEventListener('click', (event) => {
-        //     restartButton.style['display'] = 'none'
-        //     introContainer.style['display'] = 'block'
-        //     gettingStarted.style['display'] = 'block'
-        //     cardSpace.style['display'] = 'none'
-        // })
     })
-                    
+    
 })
-                
-                
+
+
+// restartButton.addEventListener('click', (event) => {
+//     restartButton.style['display'] = 'none'
+//     introContainer.style['display'] = 'block'
+//     gettingStarted.style['display'] = 'block'
+//     cardSpace.style['display'] = 'none'
+// })
                 
                 
