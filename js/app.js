@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         
         const playerSwitch = () => {
-            if (scoreA < 10 && scoreB < ){
+            if (scoreA < 10 && scoreB < 10){
                 if (playerTurn === true){
                     currentPlayer = 'A' 
                 } else if (playerTurn === false) {
