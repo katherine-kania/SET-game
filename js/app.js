@@ -9,8 +9,6 @@ const playerB = document.querySelector('#playerB')
 const displayPlayer = document.querySelector('.display-player')
 let playerTurn = true
 let currentPlayer = ''
-
-
 let playerChoiceCards = []
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -43,20 +41,28 @@ document.addEventListener('DOMContentLoaded', () => {
         introContainer.style['display'] = 'none'
         senTitle.innerHTML = 'SEN'
         
-        let score = 0
-        playerA.innerHTML = 'Player A : ' + score
-        playerB.innerHTML = 'Player B : ' + score
+        let scoreA = 0
+        let scoreB = 0
+        playerA.innerHTML = 'Player A : ' + scoreA
+        playerB.innerHTML = 'Player B : ' + scoreB
         
         
         const playerSwitch = () => {
-            if (playerTurn === true){
-                currentPlayer = 'A' 
-            } else if (playerTurn === false) {
-                currentPlayer = 'B'
-            }  
-            displayPlayer.innerHTML = `Player ${currentPlayer}'s play`
+            if (scoreA < 10 && scoreB < ){
+                if (playerTurn === true){
+                    currentPlayer = 'A' 
+                } else if (playerTurn === false) {
+                    currentPlayer = 'B'
+                }
+            } else {
+                displayPlayer.innerHTML = `Game over`
+                const endClick = document.getElementsByClassName('cardDiv')
+                for (let i = 0; i < endClick.length; i++){
+                    endClick[i].removeEventListener('click', pushChoices)
+                }
+            }
         }
-
+    
         playerSwitch(playerTurn)
        
         
@@ -123,14 +129,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // you will compare those objects by using bracket and dotnotation 
         // for example if playerChoiceCards[0].color === playerChoiceCard[1].color && playerChoiceCards[1].color === playerChoiceCards[3]
         const compareCards = () => {
-            console.log ( 'these are the data sets', playerChoiceCards[0].dataset.color, playerChoiceCards[1].dataset.color, playerChoiceCards[2].dataset.color)
+            // console.log ( 'these are the data sets', playerChoiceCards[0].dataset.color, playerChoiceCards[1].dataset.color, playerChoiceCards[2].dataset.color)
             if (playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color && playerChoiceCards[1].dataset.color === playerChoiceCards[2].dataset.color){
                 matched() 
                 replaceUsed()
                 // console.log ('this is the choices', playerChoiceCards)
                 playerChoiceCards = []
-                
-                
+
             } else if (playerChoiceCards[0].dataset.letter === playerChoiceCards[1].dataset.letter && playerChoiceCards[1].dataset.letter === playerChoiceCards[2].dataset.letter){
                 matched() 
                 replaceUsed()
@@ -139,11 +144,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 
             } else{
                 playerTurn = !playerTurn
+                for (let i = 0; i < playerChoiceCards.length; i++){
+                    playerChoiceCards[i].style.backgroundColor = 'snow'
+                }
                 playerChoiceCards = []
             }  
-            // const oldCards = document.getElementsByClassName('cardDiv')
-            //     // console.log ('these are old cards', oldCards)
-            //     cardSpace.remove(oldCards)
         } 
         // let allCards = cardSpace.getElementsByClassName('cardDiv')
         // allCards.style.backgroundColor = 'snow'
@@ -154,13 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // if score = current player wins
         const matched = ()=>{
             if (currentPlayer === 'A'){
-                playerA.innerHTML = `Player A: ${score = score + 1}`
-                playerTurn = false  
-            }
-            else if (currentPlayer === 'B'){
-                playerB.innerHTML = `Player B: ${score = score + 1}`
-                playerTurn = true
-            }
+                playerA.innerHTML = `Player A: ${scoreA = scoreA + 1}`
+            } else if (currentPlayer === 'B'){
+                playerB.innerHTML = `Player B: ${scoreB = scoreB + 1}`  
+            } 
         }
  
         const cards = deckBuilder()
@@ -172,12 +174,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const random = Math.floor(Math.random() * 27)
                 const cardLetter = cards[random].letter
                 const cardColor = cards[random].color
-                console.log('these are the random letters', cardLetter)
+                // console.log('these are the random letters', cardLetter)
                 playerChoiceCards[i].dataset.color = cardColor
                 playerChoiceCards[i].dataset.letter = cardLetter
                 playerChoiceCards[i].style.color = cardColor
                 playerChoiceCards[i].innerHTML = cardLetter 
                 playerChoiceCards[i].style.backgroundColor = 'snow'
+                playerTurn = !playerTurn
             }
         }
            
