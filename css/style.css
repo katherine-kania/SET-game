@@ -73,8 +73,8 @@ button {
 #rulesSpace {
     margin: auto;
     display: block;
-    width: 80%;
-    max-width: 700px;
+    width: 1000%;
+    max-width: 1000px;
 }
 
 #cardSpace {
