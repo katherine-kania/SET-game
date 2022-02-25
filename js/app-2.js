@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         
         const playerSwitch = () => {
-            if (scoreA < 10 && scoreB < 10){
+            if (scoreA < 5 && scoreB < 5){
                 if (playerTurn === true){
                     currentPlayer = 'A' 
                 } else if (playerTurn === false) {
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 displayPlayer.innerHTML = `player ${currentPlayer} play`
             } else {
-                displayPlayer.innerHTML = 'Game over'
+                displayPlayer.innerHTML = `Game over. <br/> player ${currentPlayer} wins!`
                 const endClick = document.getElementsByClassName('cardDiv')
                 for (let i = 0; i < endClick.length; i++){
                     endClick[i].removeEventListener('click', pushChoices)
@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         
         const pushChoices = (event) => {
+            
             const playerChoice = event.target 
             // console.log('is this the data', playerChoice.dataset)
             playerChoiceCards.push(playerChoice)
@@ -118,8 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (numberOfCards === 3) {
                 compareCards()
                 playerSwitch(playerTurn)
-                //if player = A switich intertext to B and if player = B switch intertext to A 
-    
+                //if player = A switich intertext to B and if player = B switch intertext to A    
             }
             
         }
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // you will compare those objects by using bracket and dotnotation 
         
         const compareCards = () => {
-            // console.log ( 'these are the data sets', playerChoiceCards[0].dataset.color, playerChoiceCards[1].dataset.color, playerChoiceCards[2].dataset.color)
+            // console.log ( 'these are the letter types', playerChoiceCards[0].dataset.letter.split('', 1).toString() === playerChoiceCards[1].dataset.letter.split('', 1).toString() && playerChoiceCards[1].dataset.letter.split('', 1).toString() === playerChoiceCards[2].dataset.letter.split('', 1).toString())
             if (
             // all 3 cards are === in color 
             playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color 
@@ -139,8 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
             && playerChoiceCards[0].dataset.letter.split('').length !== playerChoiceCards[1].dataset.letter.split('').length 
             && playerChoiceCards[1].dataset.letter.split('').length !== playerChoiceCards[2].dataset.letter.split('').length
             // all 3 cards !== in letter type
-            && playerChoiceCards[0].dataset.letter.split('', 1) !== playerChoiceCards[1].dataset.letter.split('', 1) 
-            && playerChoiceCards[1].dataset.letter.split('', 1) !== playerChoiceCards[2].dataset.letter.split('', 1)
+            && playerChoiceCards[0].dataset.letter.split('', 1).toString()  !== playerChoiceCards[1].dataset.letter.split('', 1).toString() 
+            && playerChoiceCards[1].dataset.letter.split('', 1).toString()  !== playerChoiceCards[2].dataset.letter.split('', 1).toString() 
             ){
                 matched() 
                 replaceUsed()
@@ -149,8 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } else if (
             // all 3 cards are === in letter type   
-            playerChoiceCards[0].dataset.letter.split('', 1) === playerChoiceCards[1].dataset.letter.split('', 1) 
-            && playerChoiceCards[1].dataset.letter.split('', 1) === playerChoiceCards[2].dataset.letter.split('', 1)
+            playerChoiceCards[0].dataset.letter.split('', 1).toString()  === playerChoiceCards[1].dataset.letter.split('', 1).toString()  
+            && playerChoiceCards[1].dataset.letter.split('', 1).toString()  === playerChoiceCards[2].dataset.letter.split('', 1).toString() 
             // all 3 cards !== in color
             && playerChoiceCards[0].dataset.color !== playerChoiceCards[1].dataset.color 
             && playerChoiceCards[1].dataset.color !== playerChoiceCards[2].dataset.color
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ){
                 matched() 
                 replaceUsed()
-                // console.log ('this is the choices', playerChoiceCards)
+                console.log ('this is the choices', playerChoiceCards)
                 playerChoiceCards = []
             } 
             else if (
@@ -171,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
             && playerChoiceCards[0].dataset.color !== playerChoiceCards[1].dataset.color 
             && playerChoiceCards[1].dataset.color !== playerChoiceCards[2].dataset.color
             // all 3 cards !== in letter type
-            && playerChoiceCards[0].dataset.letter.split('', 1) !== playerChoiceCards[1].dataset.letter.split('', 1) 
-            && playerChoiceCards[1].dataset.letter.split('', 1) !== playerChoiceCards[2].dataset.letter.split('', 1)
+            && playerChoiceCards[0].dataset.letter.split('', 1).toString()  !== playerChoiceCards[1].dataset.letter.split('', 1).toString()  
+            && playerChoiceCards[1].dataset.letter.split('', 1).toString()  !== playerChoiceCards[2].dataset.letter.split('', 1).toString() 
             ){
                 matched() 
                 replaceUsed()
@@ -186,7 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // all 3 cards === in color
                 && playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color && playerChoiceCards[1].dataset.color === playerChoiceCards[2].dataset.color
                 // all 3 cards === in letter
-                && playerChoiceCards[0].dataset.letter === playerChoiceCards[1].dataset.letter && playerChoiceCards[1].dataset.letter === playerChoiceCards[2].dataset.letter
+                && playerChoiceCards[0].dataset.letter.split('', 1) !== playerChoiceCards[1].dataset.letter.split('', 1) 
+                && playerChoiceCards[1].dataset.letter.split('', 1) !== playerChoiceCards[2].dataset.letter.split('', 1)
                 ){
                     matched() 
                     replaceUsed()

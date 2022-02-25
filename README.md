@@ -16,9 +16,9 @@ The player has the ability to click on 3 cards out of the 12 displayed cards on 
 
 For a winning point (+1), the 3 cards selected must have ONE similarity or ALL in the following features: 
     
-    - the shape type
-    - number of shapes 
-    - color of shape 
+    - the character type
+    - number of characters
+    - color of characters
 
 A SET of 3 cards must be only **the same in one feature OR in all the features**. Player recieves no point if this is not fulfilled. 
 ___
