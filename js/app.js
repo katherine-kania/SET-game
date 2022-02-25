@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         
         // randomize card array
-        const randomCard = () => {
+        const randomCard = (cards) => {
             // create 12 cards by creating element div and redering value on it
             for (let i = 0; i < 12; i++){
                 const random = Math.floor(Math.random() * 27)
@@ -112,8 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 compareCards()
                 playerSwitch(playerTurn)
                 //if player = A switich intertext to B and if player = B switch intertext to A 
-                // playerChoiceCards = []
-                // playerChoice.style.backgroundColor = 'snow'
+    
             }
             
         }
@@ -124,14 +123,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // you will compare those objects by using bracket and dotnotation 
         // for example if playerChoiceCards[0].color === playerChoiceCard[1].color && playerChoiceCards[1].color === playerChoiceCards[3]
         const compareCards = () => {
-            // console.log ( 'these are the data sets', playerChoiceCards[0].dataset.color, playerChoiceCards[1].dataset.color, playerChoiceCards[2].dataset.color)
+            console.log ( 'these are the data sets', playerChoiceCards[0].dataset.color, playerChoiceCards[1].dataset.color, playerChoiceCards[2].dataset.color)
             if (playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color && playerChoiceCards[1].dataset.color === playerChoiceCards[2].dataset.color){
                 matched() 
+                replaceUsed()
                 // console.log ('this is the choices', playerChoiceCards)
                 playerChoiceCards = []
                 
+                
             } else if (playerChoiceCards[0].dataset.letter === playerChoiceCards[1].dataset.letter && playerChoiceCards[1].dataset.letter === playerChoiceCards[2].dataset.letter){
                 matched() 
+                replaceUsed()
                 // console.log ('this is the choices', playerChoiceCards)
                 playerChoiceCards = []
                 
@@ -139,12 +141,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 playerTurn = !playerTurn
                 playerChoiceCards = []
             }  
-            const oldCards = document.getElementsByClassName('cardDiv')
-            console.log ('these are old cards', oldCards)
-            for (let i = 0; i < oldCards.length; i++){
-                cardSpace.remove(oldCards)
-            }
-            
+            // const oldCards = document.getElementsByClassName('cardDiv')
+            //     // console.log ('these are old cards', oldCards)
+            //     cardSpace.remove(oldCards)
         } 
         // let allCards = cardSpace.getElementsByClassName('cardDiv')
         // allCards.style.backgroundColor = 'snow'
@@ -155,22 +154,32 @@ document.addEventListener('DOMContentLoaded', () => {
         // if score = current player wins
         const matched = ()=>{
             if (currentPlayer === 'A'){
-                playerA.innerHTML = `Player A: ${score + 1}`
-                playerTurn = false 
-                
+                playerA.innerHTML = `Player A: ${score = score + 1}`
+                playerTurn = false  
             }
             else if (currentPlayer === 'B'){
-                playerB.innerHTML = `Player B: ${score + 1}`
+                playerB.innerHTML = `Player B: ${score = score + 1}`
                 playerTurn = true
-                
             }
-           
         }
-
-           
+ 
         const cards = deckBuilder()
         randomCard(cards)
         
+        const replaceUsed = () => {
+            // console.log ('this is the replace card', playerChoiceCards[0].dataset)
+            for (let i = 0; i < playerChoiceCards.length; i++){
+                const random = Math.floor(Math.random() * 27)
+                const cardLetter = cards[random].letter
+                const cardColor = cards[random].color
+                console.log('these are the random letters', cardLetter)
+                playerChoiceCards[i].dataset.color = cardColor
+                playerChoiceCards[i].dataset.letter = cardLetter
+                playerChoiceCards[i].style.color = cardColor
+                playerChoiceCards[i].innerHTML = cardLetter 
+                playerChoiceCards[i].style.backgroundColor = 'snow'
+            }
+        }
            
 
          // restart button created for a new game
