@@ -14,13 +14,13 @@ ___
 ### **Rules of the Game**
 The player has the ability to click on 3 cards out of the 12 displayed cards on screen.
 
-For a winning point (+1), the 3 cards selected must have at least ONE similarity or NONE in the following features: 
+For a winning point (+1), the 3 cards selected must have ONE similarity or ALL in the following features: 
     
     - the shape type
     - number of shapes 
     - color of shape 
 
-A SET of 3 cards must be eighter **all the same in one feature OR all different in each individual feature**. Player recieves no point if this is not fulfilled. 
+A SET of 3 cards must be only **the same in one feature OR in all the features**. Player recieves no point if this is not fulfilled. 
 ___
 ### **Approach** 
 User accesses the Intro page.

@@ -160,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 // console.log ('this is the choices', playerChoiceCards)
                 playerChoiceCards = []
             } 
-            
             else if (
             // all 3 cards are === in # of letters 
             playerChoiceCards[0].dataset.letter.split('').length === playerChoiceCards[1].dataset.letter.split('').length 
@@ -175,6 +174,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 // console.log ('this is the choices', playerChoiceCards)
                 playerChoiceCards = []
             } 
+            else if (
+                // all 3 cards are === in # of letters 
+                playerChoiceCards[0].dataset.letter.split('').length === playerChoiceCards[1].dataset.letter.split('').length 
+                && playerChoiceCards[1].dataset.letter.split('').length === playerChoiceCards[2].dataset.letter.split('').length
+                // all 3 cards === in color
+                && playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color && playerChoiceCards[1].dataset.color === playerChoiceCards[2].dataset.color
+                // all 3 cards === in letter
+                && playerChoiceCards[0].dataset.letter === playerChoiceCards[1].dataset.letter && playerChoiceCards[1].dataset.letter === playerChoiceCards[2].dataset.letter
+                ){
+                    matched() 
+                    replaceUsed()
+                    // console.log ('this is the choices', playerChoiceCards)
+                    playerChoiceCards = []
+                } 
             // if not a match, change player, turn back card backgrounds to default
             else{
                 playerTurn = !playerTurn

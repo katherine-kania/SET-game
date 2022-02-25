@@ -22,12 +22,13 @@ body {
 
 #senContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    column-gap: 40px;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 30px;
     width: 50%;
     height: 50%; 
     font-family: 'Shizuru', cursive;
     justify-content: center;
+    
 }
 
 .senBoxes, .cardDiv {
@@ -43,14 +44,19 @@ body {
     font-size: 50px;
     writing-mode: vertical-rl;
     text-orientation: upright;
-    box-shadow: 5px 10px rgba(192, 192, 192, 0.687);
+    box-shadow: 5px 8px rgba(192, 192, 192, 0.687);
+}
+
+.cardDiv {
+    cursor: pointer;
 }
 
 #tagLine {
-    margin-top: 30px;
+    margin-top: 50px;
     justify-content: center;
     font-family: 'Bebas Neue', cursive;
     font-size: 40px;
+    
 }
 
 #buttonContainer {
@@ -65,16 +71,15 @@ body {
     background-attachment: fixed;
 } */
 
-button {
-    margin-top: 20px;
-    padding: 10px;
-}
-
 #rulesSpace {
-    margin: auto;
+    margin-top: -60px;
     display: block;
     width: 1000%;
     max-width: 1000px;
+}
+
+#returnButton {
+    margin-top: 80px;
 }
 
 #cardSpace {
@@ -90,18 +95,25 @@ button {
     padding-bottom: 20px;
 }
 
-#topHeader {
+#playerA, #playerB {
     display: flex;
-    justify-content: space-around;
+    justify-content: end;
     align-items: baseline;
     font-family: 'Bebas Neue', cursive;
-    font-size: 20px;
+    font-size: 25px;
+    margin-right: 200px;
 }
 
 #senTitle {
     font-family: 'Shizuru', cursive;
-    font-size: 60px;
+    font-size: 70px; 
+    display: flex;
+    justify-content: start;
+    align-items: baseline;
+    margin-left: 200px;
+    margin-bottom: -60px;
 }
+
 
 .display-player {
     display: flex;
@@ -113,9 +125,33 @@ button {
     color: yellow;
 }
 
-button {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 20px;
-    margin: 20px;
-}
 
+button {
+    --borderWidth: 3;
+    --boxShadowDepth: 5;
+    --buttonColor: yellow;
+    --fontSize: 2;
+    --horizontalPadding: 16;
+    --verticalPadding: 8;
+    
+    margin: 20px;
+    background: transparent;
+    border: calc(var(--borderWidth) * 1px) solid var(--buttonColor);
+    box-shadow: calc(var(--boxShadowDepth) * 1px) calc(var(--boxShadowDepth) * 1px) 0 #888;
+    color: var(--buttonColor);
+    cursor: pointer;
+    font-size: calc(var(--fontSize) * 1rem);
+    font-family: 'Bebas Neue', cursive;
+    font-weight: bold;
+    outline: transparent;
+    padding: calc(var(--verticalPadding) * 1px) calc(var(--horizontalPadding) * 1px);
+    transition: box-shadow 0.15s ease;
+  }
+  
+  button:hover {
+    box-shadow: calc(var(--boxShadowDepth) / 2 * 1px) calc(var(--boxShadowDepth) / 2 * 1px) 0 #888;
+  }
+  
+  button:active {
+    box-shadow: 0 0 0 #888;
+  }
