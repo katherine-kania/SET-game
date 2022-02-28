@@ -23,7 +23,7 @@ body {
 #senContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 30px;
+    column-gap: 10px;
     width: 50%;
     height: 50%; 
     font-family: 'Shizuru', cursive;
@@ -63,13 +63,6 @@ body {
     margin-top: 50px;a
     float: center;
 }
-
-/* input {
-    border: none;
-    border-bottom: 2px solid whitesmoke;
-    background: linear-gradient(to top right, #f8EEE7, #a2a2a2);
-    background-attachment: fixed;
-} */
 
 #rulesSpace {
     margin-top: -60px;
@@ -114,6 +107,9 @@ body {
     margin-bottom: -70px;
 }
 
+#gameSpace {
+    margin-top: -30px;
+}
 
 .display-player {
     display: flex;
