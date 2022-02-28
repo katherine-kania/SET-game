@@ -10,23 +10,25 @@ const displayPlayer = document.querySelector('.display-player')
 let playerTurn = true
 let currentPlayer = ''
 let playerChoiceCards = []
+maxScore = 10
+cardActive = true
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // when rules button is clicked, popover appears with rules
+    // when rules button is clicked, it directs to the image of the rules
+    // introContainer div visability is set to none
+    // 'I'm in!' button dirrects you back to the intro page
     rulesButton.addEventListener('click', (event) => {
         event.preventDefault()
         introContainer.style['display'] = 'none'
         introContainer.style['display'] = 'none'
         rulesSpace.style['display'] = 'block'
         rulesSpace.src = 'img/rules-02.png'
-
         const returnButton = document.createElement('button')
         returnButton.innerHTML = 'I\'m in!'
         returnButton.id = 'returnButton'
         document.body.appendChild(returnButton)
-
-        //returns from rules to intro page
+        
         returnButton.addEventListener('click', () => {
             returnButton.style['display'] = 'none'
             introContainer.style['display'] = 'block'
@@ -35,7 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 
-    // click start button and game appears
+    // click 'start game' button
+    // introContainer div visability is set to none
+    // new score board title apears
     startButton.addEventListener('click', (event) => {
         event.preventDefault()
         introContainer.style['display'] = 'none'
@@ -46,15 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
         playerA.innerHTML = 'Player A : ' + scoreA
         playerB.innerHTML = 'Player B : ' + scoreB
         
-        
+        // if both player turns are under the max score points
+        // switch players
+        // if player reaches max score points that player wins
         const playerSwitch = () => {
-            if (scoreA < 5 && scoreB < 5){
+            if (scoreA < maxScore && scoreB < maxScore){
                 if (playerTurn === true){
                     currentPlayer = 'A' 
                 } else if (playerTurn === false) {
                     currentPlayer = 'B'
                 }
-                displayPlayer.innerHTML = `player ${currentPlayer} play`
+                displayPlayer.innerHTML = `player ${currentPlayer}'s turn`
             } else {
                 displayPlayer.innerHTML = `Game over. <br/> player ${currentPlayer} wins!`
                 const endClick = document.getElementsByClassName('cardDiv')
@@ -66,14 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
         playerSwitch(playerTurn)
        
-        
+        // here we build the object of keys and values for each possible card
         const deckBuilder = () => {
             // 2 arrays of the letter and color values
             const LETTERS = ['S', 'SS', 'SSS', 'E', 'EE', 'EEE', 'N', 'NN', 'NNN']
             const COLORS = ['hotpink', 'lawngreen', 'blue']
             
-            //loop through the letters while looping through the values 
-            //to create the object with both values
+            // loop through the letters while looping through the values 
+            // pushing each letter and color into an object defined as cards
             const cards = []
             for (let l = 0; l < LETTERS.length; l++) {
                 for (let c = 0; c < COLORS.length; c++) {
@@ -87,9 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         
-        // randomize card array
+        // create 12 cards by creating element div and rendering the value on it
+        // set the innerhtml with the random cardLetter
+        // set the color style of the innerhtml with the random cardColor
         const randomCard = (cards) => {
-            // create 12 cards by creating element div and redering value on it
             for (let i = 0; i < 12; i++){
                 const random = Math.floor(Math.random() * 27)
                 const cardLetter = cards[random].letter
@@ -106,15 +113,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }    
         }
         
-        
+        // when a card is selected it turns yellow, when 3 are selected they are pushed into an array
+        //for example playerChoiceCards = [{}, {}, {}] 
         const pushChoices = (event) => {
-            
             const playerChoice = event.target 
             // console.log('is this the data', playerChoice.dataset)
             playerChoiceCards.push(playerChoice)
             // console.log('choices array', playerChoiceCards)
             playerChoice.style.backgroundColor = 'yellow'
-            // set to 3 card selections for comparison
             const numberOfCards = playerChoiceCards.length
             if (numberOfCards === 3) {
                 compareCards()
@@ -125,10 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // compare cards
-        // an array of 3 objects - those objects will contain 2 keys and 2 values 
-        // for example playerChoiceCards = [{}, {}, {}] 
-        // you will compare those objects by using bracket and dotnotation 
-        
+        // an array of 3 objects - those objects will contain a key and value
+        // you will compare those objects by calling the dataset of each object 
         const compareCards = () => {
             // console.log ( 'these are the letter types', playerChoiceCards[0].dataset.letter.split('', 1).toString() === playerChoiceCards[1].dataset.letter.split('', 1).toString() && playerChoiceCards[1].dataset.letter.split('', 1).toString() === playerChoiceCards[2].dataset.letter.split('', 1).toString())
             if (
@@ -206,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
         // if matched add score 
         // update html text score
-        // if score = current player wins
         const matched = ()=>{
             if (currentPlayer === 'A'){
                 playerA.innerHTML = `Player A: ${scoreA = scoreA + 1}`
@@ -218,6 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cards = deckBuilder()
         randomCard(cards)
         
+        // used matched card get replaced with new random letters and colors
         const replaceUsed = () => {
             // console.log ('this is the replace card', playerChoiceCards[0].dataset)
             for (let i = 0; i < playerChoiceCards.length; i++){
@@ -234,8 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
            
-
-         // restart button created for a new game
+         // restart button takes you back to intro page
         const restartButton = document.createElement('button')
         restartButton.innerHTML = 'restart'
         restartButton.id = 'restartButton'

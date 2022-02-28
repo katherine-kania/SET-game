@@ -1,6 +1,6 @@
 ## game-project-1
 ____
-# **SET +**
+# **SET // with a twist**
 #### A Friend Game of Visual Sensations
 ___
 ### **Techologies Used**
