@@ -10,7 +10,7 @@ const displayPlayer = document.querySelector('.display-player')
 let playerTurn = true
 let currentPlayer = ''
 let playerChoiceCards = []
-maxScore = 10
+maxScore = 3
 cardActive = true
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         //for example playerChoiceCards = [{}, {}, {}] 
         const pushChoices = (event) => {
             const playerChoice = event.target 
-            // console.log('is this the data', playerChoice.dataset)
+            console.log('is this the data', playerChoice.dataset)
             playerChoiceCards.push(playerChoice)
             // console.log('choices array', playerChoiceCards)
             playerChoice.style.backgroundColor = 'yellow'

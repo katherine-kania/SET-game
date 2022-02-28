@@ -23,7 +23,7 @@ body {
 #senContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 10px;
+    column-gap: 5px;
     width: 50%;
     height: 50%; 
     font-family: 'Shizuru', cursive;
