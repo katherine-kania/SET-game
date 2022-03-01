@@ -1,3 +1,4 @@
+// DOM CONTENT LOAD INITIALIZERS
 const rulesButton = document.querySelector('#rulesButton')
 const startButton = document.querySelector('#startButton')
 const rulesSpace = document.querySelector('#rulesSpace')
@@ -7,238 +8,322 @@ const cardSpace = document.querySelector('#cardSpace')
 const playerA = document.querySelector('#playerA')
 const playerB = document.querySelector('#playerB')
 const displayPlayer = document.querySelector('.display-player')
+
+// Current player turn is true
 let playerTurn = true
+// Current Player empty string
 let currentPlayer = ''
+// Empty bracket for future selected cards that will be compared
 let playerChoiceCards = []
-maxScore = 3
-cardActive = true
+// Winning score variable to play to
+let maxScore = 10
 
-document.addEventListener('DOMContentLoaded', () => {
 
-    // when rules button is clicked, it directs to the image of the rules
-    // introContainer div visability is set to none
-    // 'I'm in!' button dirrects you back to the intro page
-    rulesButton.addEventListener('click', (event) => {
-        event.preventDefault()
-        introContainer.style['display'] = 'none'
-        introContainer.style['display'] = 'none'
-        rulesSpace.style['display'] = 'block'
-        rulesSpace.src = 'img/rules-02.png'
-        const returnButton = document.createElement('button')
-        returnButton.innerHTML = 'I\'m in!'
-        returnButton.id = 'returnButton'
-        document.body.appendChild(returnButton)
-        
-        returnButton.addEventListener('click', () => {
-            returnButton.style['display'] = 'none'
-            introContainer.style['display'] = 'block'
-            introContainer.style['display'] = 'block'
-            rulesSpace.style['display'] = 'none'
-        })
-    })
-
-    // click 'start game' button
-    // introContainer div visability is set to none
-    // new score board title apears
-    startButton.addEventListener('click', (event) => {
-        event.preventDefault()
-        introContainer.style['display'] = 'none'
-        senTitle.innerHTML = 'SEN'
-        
-        let scoreA = 0
-        let scoreB = 0
-        playerA.innerHTML = 'Player A : ' + scoreA
-        playerB.innerHTML = 'Player B : ' + scoreB
-        
-        // if both player turns are under the max score points
-        // switch players
-        // if player reaches max score points that player wins
-        const playerSwitch = () => {
-            if (scoreA < maxScore && scoreB < maxScore){
-                if (playerTurn === true){
-                    currentPlayer = 'A' 
-                } else if (playerTurn === false) {
-                    currentPlayer = 'B'
-                }
-                displayPlayer.innerHTML = `player ${currentPlayer}'s turn`
-            } else {
-                displayPlayer.innerHTML = `Game over. <br/> player ${currentPlayer} wins!`
-                const endClick = document.getElementsByClassName('cardDiv')
-                for (let i = 0; i < endClick.length; i++){
-                    endClick[i].removeEventListener('click', pushChoices)
-                }
-            }
-        }
+// RULES + RETURN BUTTON
+// IntroContainer div visability is set to none
+rulesButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    // Intro page is hidden
+    introContainer.style['display'] = 'none'
+    // Rules page apears
+    rulesSpace.style['display'] = 'block'
+    // Rules img is attached
+    rulesSpace.src = 'img/rules-02.png'
+    // Return to intro page button is created
+    const returnButton = document.createElement('button')
+    // Button inner text is changed
+    returnButton.innerHTML = 'I\'m in!'
+    // Add an id to button
+    returnButton.id = 'returnButton'
+    // Attach button to document
+    document.body.appendChild(returnButton)
     
-        playerSwitch(playerTurn)
-       
-        // here we build the object of keys and values for each possible card
-        const deckBuilder = () => {
-            // 2 arrays of the letter and color values
-            const LETTERS = ['S', 'SS', 'SSS', 'E', 'EE', 'EEE', 'N', 'NN', 'NNN']
-            const COLORS = ['hotpink', 'lawngreen', 'blue']
-            
-            // loop through the letters while looping through the values 
-            // pushing each letter and color into an object defined as cards
-            const cards = []
-            for (let l = 0; l < LETTERS.length; l++) {
-                for (let c = 0; c < COLORS.length; c++) {
-                    const letter = LETTERS[l]
-                    const color = COLORS[c]
-                    cards.push({letter, color})
-                }
-            }
-            return cards
-        }
-        
-        
-        // create 12 cards by creating element div and rendering the value on it
-        // set the innerhtml with the random cardLetter
-        // set the color style of the innerhtml with the random cardColor
-        const randomCard = (cards) => {
-            for (let i = 0; i < 12; i++){
-                const random = Math.floor(Math.random() * 27)
-                const cardLetter = cards[random].letter
-                const cardColor = cards[random].color
-                const cardRender = document.createElement('div')
-                cardRender.classList.add('cardDiv')
-                cardRender.innerHTML = cardLetter
-                cardRender.setAttribute('data-letter', cardLetter)
-                cardRender.style.color = cardColor
-                cardRender.setAttribute('data-color', cardColor)
-                cardSpace.appendChild(cardRender)
-                cardRender.addEventListener('click', pushChoices)
-            }    
-        }
-        
-        // when a card is selected it turns yellow, when 3 are selected they are pushed into an array
-        //for example playerChoiceCards = [{}, {}, {}] 
-        const pushChoices = (event) => {
-            const playerChoice = event.target 
-            playerChoiceCards.push(playerChoice)
-            playerChoice.style.backgroundColor = 'yellow'
-            const numberOfCards = playerChoiceCards.length
-            if (numberOfCards === 3) {
-                compareCards()
-                //if player = A switich intertext to B and if player = B switch intertext to A    
-                playerSwitch(playerTurn)
-            }
-            
-        }
-        
-        // compare cards
-        // an array of 3 objects - those objects will contain a key and value
-        // you will compare those objects by calling the dataset of each object 
-        const compareCards = () => {
-            if (
-            // all 3 cards are === in color 
-            playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color 
-            && playerChoiceCards[1].dataset.color === playerChoiceCards[2].dataset.color
-            // all 3 cards !== in # of letters
-            && playerChoiceCards[0].dataset.letter.split('').length !== playerChoiceCards[1].dataset.letter.split('').length 
-            && playerChoiceCards[1].dataset.letter.split('').length !== playerChoiceCards[2].dataset.letter.split('').length
-            // all 3 cards !== in letter type
-            && playerChoiceCards[0].dataset.letter.split('', 1).toString()  !== playerChoiceCards[1].dataset.letter.split('', 1).toString() 
-            && playerChoiceCards[1].dataset.letter.split('', 1).toString()  !== playerChoiceCards[2].dataset.letter.split('', 1).toString() 
-            ){
-                matched() 
-                replaceUsed()
-                playerChoiceCards = []
+    // 'I'm in!' button directs you back to the intro page
+    returnButton.addEventListener('click', () => {
+        // Return button is hidden
+        returnButton.style['display'] = 'none'
+        // Intro page is visible
+        introContainer.style['display'] = 'block'
+        // Rules page is hidden
+        rulesSpace.style['display'] = 'none'
+    })
+})
 
-            } else if (
-            // all 3 cards are === in letter type   
-            playerChoiceCards[0].dataset.letter.split('', 1).toString()  === playerChoiceCards[1].dataset.letter.split('', 1).toString()  
-            && playerChoiceCards[1].dataset.letter.split('', 1).toString()  === playerChoiceCards[2].dataset.letter.split('', 1).toString() 
-            // all 3 cards !== in color
-            && playerChoiceCards[0].dataset.color !== playerChoiceCards[1].dataset.color 
-            && playerChoiceCards[1].dataset.color !== playerChoiceCards[2].dataset.color
-            // all 3 cards !== in # of letters
-            && playerChoiceCards[0].dataset.letter.split('').length !== playerChoiceCards[1].dataset.letter.split('').length 
-            && playerChoiceCards[1].dataset.letter.split('').length !== playerChoiceCards[2].dataset.letter.split('').length
-            ){
-                matched() 
-                replaceUsed()
-                playerChoiceCards = []
-            } 
-            else if (
-            // all 3 cards are === in # of letters 
+//START BUTTON
+// Click 'start game' button event listener
+startButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    // Intro page is hidden
+    introContainer.style['display'] = 'none'
+    // SET text appears on the upper left
+    senTitle.innerHTML = 'SEN'
+    
+    // The start score for player A & B is set to 0
+    let scoreA = 0
+    let scoreB = 0
+    // The inner text on the upper right is updated with the latest scores for each player
+    playerA.innerHTML = 'Player A : ' + scoreA
+    playerB.innerHTML = 'Player B : ' + scoreB
+    
+    // PLAYER TURNS + GAME OVER
+    const playerSwitch = () => {
+        // If both scores are under the winning defined score
+        if (scoreA < maxScore && scoreB < maxScore){
+            // If player turn is true, set current player to A
+            if (playerTurn === true){
+                currentPlayer = 'A' 
+            // If player turn is false, set current player to B
+            } else if (playerTurn === false) {
+                currentPlayer = 'B'
+            }
+            // Update the text to reflect the current player's turn
+            displayPlayer.innerHTML = `player ${currentPlayer}'s turn`
+        } else {
+            // If a player hits max score, update the HTML text to a winning announcement
+            displayPlayer.innerHTML = `Game over. <br/> player ${currentPlayer} wins!`
+            // Don't allow clicking on cards once game is won
+            const endClick = document.getElementsByClassName('cardDiv')
+            for (let i = 0; i < endClick.length; i++){
+                endClick[i].removeEventListener('click', pushChoices)
+            }
+        }
+    }
+
+    playerSwitch(playerTurn)
+    
+    // BUILDING THE DECK
+    const deckBuilder = () => {
+        // A variable defined as an array of all possible letters
+        const LETTERS = ['S', 'SS', 'SSS', 'E', 'EE', 'EEE', 'N', 'NN', 'NNN']
+        // A variable defined as an array of all possible colors
+        const COLORS = ['hotpink', 'lawngreen', 'blue']
+        // Variable cards set to an empty bracket
+        const cards = []
+        // Loop through each letters
+        for (let l = 0; l < LETTERS.length; l++) {
+            // Loop through each colors
+            for (let c = 0; c < COLORS.length; c++) {
+                // Define the key letter
+                const letter = LETTERS[l]
+                // Define the key color
+                const color = COLORS[c]
+                // Push each letter and color into an array as values
+                cards.push({letter, color})
+            }
+        }
+        // return each object/card
+        return cards
+    }
+    
+    
+    // RANDOMIZING CARDS
+    const randomCard = (cards) => {
+        // 12 cards are created
+        for (let i = 0; i < 12; i++){
+            // Random value is created out of the 27 cards
+            const random = Math.floor(Math.random() * 27)
+            // Here we define the random letter
+            const cardLetter = cards[random].letter
+            // Here we define the random color
+            const cardColor = cards[random].color
+            // 12 divs are created
+            const cardRender = document.createElement('div')
+            // 12 divs are assigned a class
+            cardRender.classList.add('cardDiv')
+            // A letter is inserted as text into each div
+            cardRender.innerHTML = cardLetter
+            // That same letter is assigned as a data-set value
+            cardRender.setAttribute('data-letter', cardLetter)
+            // A color is applied to the text style
+            cardRender.style.color = cardColor
+            // That same color is assigned as a data-set value
+            cardRender.setAttribute('data-color', cardColor)
+            // The 12 divs are attached to the cardspace div 
+            cardSpace.appendChild(cardRender)
+            // Allow each div to be selectable 
+            cardRender.addEventListener('click', pushChoices)
+        }    
+    }
+    
+    // 3 CARDS ARE SELECTED
+    const pushChoices = (event) => {
+        // The user click targets
+        const playerChoice = event.target 
+        // Click target objects are pushed into the empty player choice bracket
+        playerChoiceCards.push(playerChoice)
+        // The clicked card's backgrounds turn yellow
+        playerChoice.style.backgroundColor = 'yellow'
+        // A variable is defined to the amount of clicks/selections
+        const numberOfCards = playerChoiceCards.length
+        // Set the selections to 3
+        if (numberOfCards === 3) {
+            // push the 3 objects into the function to compare
+            compareCards()
+            // If player = A, switch intertext to B
+            // If player = B, switch intertext to A    
+            playerSwitch(playerTurn)
+        }
+        
+    }
+    
+    // COMPARE THE 3 CARDS
+    const compareCards = () => {
+        // Compare the data set keys between the first 2 objects and then 2nd two objects in the array
+        if (
+        // All 3 cards are === in color 
+        playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color 
+        && playerChoiceCards[1].dataset.color === playerChoiceCards[2].dataset.color
+        // All 3 cards !== in # of letters  / split the letter into separate strings and compare how many in each
+        && playerChoiceCards[0].dataset.letter.split('').length !== playerChoiceCards[1].dataset.letter.split('').length 
+        && playerChoiceCards[1].dataset.letter.split('').length !== playerChoiceCards[2].dataset.letter.split('').length
+        // All 3 cards !== in letter type / split the letter into separate strings and compare the string value of the first one
+        && playerChoiceCards[0].dataset.letter.split('', 1).toString()  !== playerChoiceCards[1].dataset.letter.split('', 1).toString() 
+        && playerChoiceCards[1].dataset.letter.split('', 1).toString()  !== playerChoiceCards[2].dataset.letter.split('', 1).toString() 
+        ){
+            // Run the matched function
+            matched() 
+            // Replace the 3 card object values
+            replaceUsed()
+            // Set the player choices to empty
+            playerChoiceCards = []
+        
+        // Compare the data set keys between the first 2 objects and then 2nd two objects in the array
+        } else if (
+        // All 3 cards are === in letter type / split the letter into separate strings and compare how many in each 
+        playerChoiceCards[0].dataset.letter.split('', 1).toString()  === playerChoiceCards[1].dataset.letter.split('', 1).toString()  
+        && playerChoiceCards[1].dataset.letter.split('', 1).toString()  === playerChoiceCards[2].dataset.letter.split('', 1).toString() 
+        // All 3 cards !== in color
+        && playerChoiceCards[0].dataset.color !== playerChoiceCards[1].dataset.color 
+        && playerChoiceCards[1].dataset.color !== playerChoiceCards[2].dataset.color
+        // All 3 cards !== in # of letters / split the letter into separate strings and compare the string value of the first one
+        && playerChoiceCards[0].dataset.letter.split('').length !== playerChoiceCards[1].dataset.letter.split('').length 
+        && playerChoiceCards[1].dataset.letter.split('').length !== playerChoiceCards[2].dataset.letter.split('').length
+        ){
+            // Run the matched function
+            matched() 
+            // Replace the 3 card object values
+            replaceUsed()
+            // Set the player choices to empty
+            playerChoiceCards = []
+        } 
+
+        // Compare the data set keys between the first 2 objects and then 2nd two objects in the array
+        else if (
+        // All 3 cards are === in # of letters / split the letter into separate strings and compare how many in each
+        playerChoiceCards[0].dataset.letter.split('').length === playerChoiceCards[1].dataset.letter.split('').length 
+        && playerChoiceCards[1].dataset.letter.split('').length === playerChoiceCards[2].dataset.letter.split('').length
+        // All 3 cards !== in color
+        && playerChoiceCards[0].dataset.color !== playerChoiceCards[1].dataset.color 
+        && playerChoiceCards[1].dataset.color !== playerChoiceCards[2].dataset.color
+        // All 3 cards !== in letter type / split the letter into separate strings and compare the string value of the first one
+        && playerChoiceCards[0].dataset.letter.split('', 1).toString()  !== playerChoiceCards[1].dataset.letter.split('', 1).toString()  
+        && playerChoiceCards[1].dataset.letter.split('', 1).toString()  !== playerChoiceCards[2].dataset.letter.split('', 1).toString() 
+        ){
+            // Run the matched function
+            matched() 
+            // Replace the 3 card object values
+            replaceUsed()
+            // Set the player choices to empty
+            playerChoiceCards = []
+        } 
+        
+        // Compare the data set keys between the first 2 objects and then 2nd two objects in the array
+        else if (
+            // All 3 cards are === in # of letters 
             playerChoiceCards[0].dataset.letter.split('').length === playerChoiceCards[1].dataset.letter.split('').length 
             && playerChoiceCards[1].dataset.letter.split('').length === playerChoiceCards[2].dataset.letter.split('').length
-            // all 3 cards !== in color
-            && playerChoiceCards[0].dataset.color !== playerChoiceCards[1].dataset.color 
-            && playerChoiceCards[1].dataset.color !== playerChoiceCards[2].dataset.color
-            // all 3 cards !== in letter type
-            && playerChoiceCards[0].dataset.letter.split('', 1).toString()  !== playerChoiceCards[1].dataset.letter.split('', 1).toString()  
-            && playerChoiceCards[1].dataset.letter.split('', 1).toString()  !== playerChoiceCards[2].dataset.letter.split('', 1).toString() 
+            // All 3 cards === in color
+            && playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color && playerChoiceCards[1].dataset.color === playerChoiceCards[2].dataset.color
+            // All 3 cards === in letter type / split the letter into separate strings and campare the string value of the first one
+            && playerChoiceCards[0].dataset.letter.split('', 1).toString() !== playerChoiceCards[1].dataset.letter.split('', 1).toString() 
+            && playerChoiceCards[1].dataset.letter.split('', 1).toString() !== playerChoiceCards[2].dataset.letter.split('', 1).toString()
             ){
-                matched() 
-                replaceUsed()
-                playerChoiceCards = []
+            // Run the matched function
+            matched() 
+            // Replace the 3 card object values
+            replaceUsed()
+            // Set the player choices to empty
+            playerChoiceCards = []
+
             } 
-            else if (
-                // all 3 cards are === in # of letters 
-                playerChoiceCards[0].dataset.letter.split('').length === playerChoiceCards[1].dataset.letter.split('').length 
-                && playerChoiceCards[1].dataset.letter.split('').length === playerChoiceCards[2].dataset.letter.split('').length
-                // all 3 cards === in color
-                && playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color && playerChoiceCards[1].dataset.color === playerChoiceCards[2].dataset.color
-                // all 3 cards === in letter
-                && playerChoiceCards[0].dataset.letter.split('', 1) !== playerChoiceCards[1].dataset.letter.split('', 1) 
-                && playerChoiceCards[1].dataset.letter.split('', 1) !== playerChoiceCards[2].dataset.letter.split('', 1)
-                ){
-                    matched() 
-                    replaceUsed()
-                    playerChoiceCards = []
-                } 
-            // if not a match, change player, turn back card backgrounds to default
-            else{
-                playerTurn = !playerTurn
-                for (let i = 0; i < playerChoiceCards.length; i++){
-                    playerChoiceCards[i].style.backgroundColor = 'snow'
-                }
-                playerChoiceCards = []
-            }  
-        } 
-  
-        // if matched add score 
-        // update html text score
-        const matched = ()=>{
-            if (currentPlayer === 'A'){
-                playerA.innerHTML = `Player A: ${scoreA = scoreA + 1}`
-            } else if (currentPlayer === 'B'){
-                playerB.innerHTML = `Player B: ${scoreB = scoreB + 1}`  
-            } 
-        }
- 
-        const cards = deckBuilder()
-        randomCard(cards)
-        
-        // used matched card get replaced with new random letters and colors
-        const replaceUsed = () => {
+        // IF IT'S NOT A MATCH
+        else{
+            // Change the player turn
+            playerTurn = !playerTurn
+            // Loop through each card
             for (let i = 0; i < playerChoiceCards.length; i++){
-                const random = Math.floor(Math.random() * 27)
-                const cardLetter = cards[random].letter
-                const cardColor = cards[random].color
-                playerChoiceCards[i].dataset.color = cardColor
-                playerChoiceCards[i].dataset.letter = cardLetter
-                playerChoiceCards[i].style.color = cardColor
-                playerChoiceCards[i].innerHTML = cardLetter 
+                // Change the background of clicked cards back to white
                 playerChoiceCards[i].style.backgroundColor = 'snow'
-                playerTurn = !playerTurn
             }
-        }
-           
-         // restart button takes you back to intro page
-        const restartButton = document.createElement('button')
-        restartButton.innerHTML = 'restart'
-        restartButton.id = 'restartButton'
-        document.body.appendChild(restartButton)
-        restartButton.addEventListener('click', (event) => {
-            location.reload(true)
-        })
-                    
-    })
+            // Set the player choices to empty
+            playerChoiceCards = []
+        }  
+    } 
+
+  
+    // IF IT'S A MATCH
+    const matched = ()=>{
+        
+        // If player A is the current player
+        if (currentPlayer === 'A'){
+            // add a point to the player A score
+            playerA.innerHTML = `Player A: ${scoreA = scoreA + 1}`
+            
+        // If player A is the current player    
+        } else if (currentPlayer === 'B'){
+            // add a point to the player B score
+            playerB.innerHTML = `Player B: ${scoreB = scoreB + 1}`  
+        } 
+    }
+
+    // Run the deck building function and set it to a variable
+    const cards = deckBuilder()
+    // Run the cards through the randomizer
+    randomCard(cards)
     
+    // REPLACE USED CARDS       
+    const replaceUsed = () => {
+        // Loop the 3 cards used 
+        for (let i = 0; i < playerChoiceCards.length; i++){
+            // generate a random selections out of 27
+            const random = Math.floor(Math.random() * 27)
+            // Here we define the random letter
+            const cardLetter = cards[random].letter
+            // Here we define the random color
+            const cardColor = cards[random].color
+            // Reassign the data-set color
+            playerChoiceCards[i].dataset.color = cardColor
+            // Reassign the data-set letter
+            playerChoiceCards[i].dataset.letter = cardLetter
+            // Change the font color to the data-set color
+            playerChoiceCards[i].style.color = cardColor
+            // Change the inner text to the data-set letter
+            playerChoiceCards[i].innerHTML = cardLetter 
+            // Change the background of the selected cards to white
+            playerChoiceCards[i].style.backgroundColor = 'snow'
+            // Switch player
+            playerTurn = !playerTurn
+        }
+    }
+        
+    // RESTART BUTTON
+    // Create the button
+    const restartButton = document.createElement('button')
+    // Add text to button
+    restartButton.innerHTML = 'restart'
+    // Assign an id to the button
+    restartButton.id = 'restartButton'
+    // Attach the button to the document
+    document.body.appendChild(restartButton)
+    // When button is clicked 
+    restartButton.addEventListener('click', (event) => {
+        // Reload the page back to the Intro page
+        location.reload(true)
+    })
+                
 })
+
+
 
 
    
