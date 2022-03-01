@@ -151,3 +151,8 @@ button {
   button:active {
     box-shadow: 0 0 0 #888;
   }
+  
+  @viewport {
+    min-width: 640px;
+    max-width: 800px;
+  }

@@ -88,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     cards.push({letter, color})
                 }
             }
-            //  console.log('these are the cards', cards) 
             return cards
         }
         
@@ -101,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const random = Math.floor(Math.random() * 27)
                 const cardLetter = cards[random].letter
                 const cardColor = cards[random].color
-                //console.log('these are the random letters', cardLetter)
                 const cardRender = document.createElement('div')
                 cardRender.classList.add('cardDiv')
                 cardRender.innerHTML = cardLetter
@@ -117,15 +115,13 @@ document.addEventListener('DOMContentLoaded', () => {
         //for example playerChoiceCards = [{}, {}, {}] 
         const pushChoices = (event) => {
             const playerChoice = event.target 
-            console.log('is this the data', playerChoice.dataset)
             playerChoiceCards.push(playerChoice)
-            // console.log('choices array', playerChoiceCards)
             playerChoice.style.backgroundColor = 'yellow'
             const numberOfCards = playerChoiceCards.length
             if (numberOfCards === 3) {
                 compareCards()
-                playerSwitch(playerTurn)
                 //if player = A switich intertext to B and if player = B switch intertext to A    
+                playerSwitch(playerTurn)
             }
             
         }
@@ -134,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // an array of 3 objects - those objects will contain a key and value
         // you will compare those objects by calling the dataset of each object 
         const compareCards = () => {
-            // console.log ( 'these are the letter types', playerChoiceCards[0].dataset.letter.split('', 1).toString() === playerChoiceCards[1].dataset.letter.split('', 1).toString() && playerChoiceCards[1].dataset.letter.split('', 1).toString() === playerChoiceCards[2].dataset.letter.split('', 1).toString())
             if (
             // all 3 cards are === in color 
             playerChoiceCards[0].dataset.color === playerChoiceCards[1].dataset.color 
@@ -148,7 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ){
                 matched() 
                 replaceUsed()
-                // console.log ('this is the choices', playerChoiceCards)
                 playerChoiceCards = []
 
             } else if (
@@ -164,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ){
                 matched() 
                 replaceUsed()
-                console.log ('this is the choices', playerChoiceCards)
                 playerChoiceCards = []
             } 
             else if (
@@ -180,7 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ){
                 matched() 
                 replaceUsed()
-                // console.log ('this is the choices', playerChoiceCards)
                 playerChoiceCards = []
             } 
             else if (
@@ -195,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 ){
                     matched() 
                     replaceUsed()
-                    // console.log ('this is the choices', playerChoiceCards)
                     playerChoiceCards = []
                 } 
             // if not a match, change player, turn back card backgrounds to default
@@ -223,12 +214,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // used matched card get replaced with new random letters and colors
         const replaceUsed = () => {
-            // console.log ('this is the replace card', playerChoiceCards[0].dataset)
             for (let i = 0; i < playerChoiceCards.length; i++){
                 const random = Math.floor(Math.random() * 27)
                 const cardLetter = cards[random].letter
                 const cardColor = cards[random].color
-                // console.log('these are the random letters', cardLetter)
                 playerChoiceCards[i].dataset.color = cardColor
                 playerChoiceCards[i].dataset.letter = cardLetter
                 playerChoiceCards[i].style.color = cardColor
