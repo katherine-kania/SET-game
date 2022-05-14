@@ -1,17 +1,14 @@
-## game-project-1
-____
-# **SET // with a twist**
-#### A Friend Game of Visual Sensations
-___
-### **Techologies Used**
-* HTML
-* CSS
-* JavaScript
-___
-### **Sources**
-- [Game Source](https://www.setgame.com/sites/default/files/instructions/SET%20INSTRUCTIONS%20-%20ENGLISH.pdf)
-___
-### **Rules of the Game**
+# SET (with a twist)
+
+[Link to deployed game](https://katherine-kania.github.io/game-project-1/)
+
+## Techologies Used
+- HTML
+- CSS
+- JavaScript
+
+## Rules of the Game
+
 The player has the ability to click on 3 cards out of the 12 displayed cards on screen.
 
 For a winning point (+1), the 3 cards selected must have ONE similarity or ALL in the following features: 
@@ -21,8 +18,10 @@ For a winning point (+1), the 3 cards selected must have ONE similarity or ALL i
     - color of characters
 
 A SET of 3 cards must be only **the same in one feature OR in all the features**. Player recieves no point if this is not fulfilled. 
+
+[Game Source](https://www.setgame.com/sites/default/files/instructions/SET%20INSTRUCTIONS%20-%20ENGLISH.pdf)
 ___
-### **Approach** 
+### Approach
 User accesses the Intro page.
 
 ![Intro Page](/img/intro.jpg)
@@ -36,8 +35,6 @@ As a user, I want to click out of my instructions or click 'Click to Start' butt
 The player is presented with a page of 12 cards.
 
 ![Intro Page](/img/gamePage.jpg)
-
-___
 
 Player A is prompted to play and selects 3 cards. A message indicates +point or not.
 
