@@ -1,5 +1,7 @@
 # SET (with a twist)
 
+*SEI Project 1*
+
 [Link to deployed game](https://katherine-kania.github.io/game-project-1/)
 
 ## Techologies Used
