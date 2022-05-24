@@ -2,7 +2,7 @@
 
 *SEI Project 1*
 
-[Link to deployed game](https://katherine-kania.github.io/game-project-1/)
+[Link to deployed game](https://katherine-kania.github.io/SET-game/)
 
 ## Techologies Used
 - HTML
